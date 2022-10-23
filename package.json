@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "commander": "^9.4.1"
   }
 }
