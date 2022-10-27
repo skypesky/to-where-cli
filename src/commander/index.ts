@@ -10,18 +10,32 @@ program.command("<point>")
         logger.log({ str, options });
     });
 
-program.command("<point> <path>")
-    .description('Warps to the directory specified by the warp point with path appended')
-    .action((str, options) => {
-        logger.log({ str, options });
-    });
-
 program.command('add')
     .description('Adds the current working directory to your warp points')
     .argument('<point>', 'TODO')
     .action((str, options) => {
-        logger.log({ str, options })
+        logger.log({ str, options });
+    });
 
+program.command('rm')
+    .description('Adds the current working directory to your warp points')
+    .argument('<point>', 'TODO')
+    .action((str, options) => {
+        logger.log({ str, options });
+    });
+
+program.command('show')
+    .description('Adds the current working directory to your warp points')
+    .argument('<point>', 'TODO')
+    .action((str, options) => {
+        logger.log({ str, options });
+    });
+
+program.command('list')
+    .description('Adds the current working directory to your warp points')
+    .argument('<point>', 'TODO')
+    .action((str, options) => {
+        logger.log({ str, options });
     });
 
 program.parse();
