@@ -24,14 +24,14 @@ program.command('rm')
         logger.log({ str, options });
     });
 
-program.command('show')
+program.command('list')
     .description('Adds the current working directory to your warp points')
     .argument('<point>', 'TODO')
     .action((str, options) => {
         logger.log({ str, options });
     });
 
-program.command('list')
+program.command('clean')
     .description('Adds the current working directory to your warp points')
     .argument('<point>', 'TODO')
     .action((str, options) => {
