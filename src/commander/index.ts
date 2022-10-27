@@ -33,7 +33,7 @@ program.command('list')
 
 program.command('clean')
     .description('Adds the current working directory to your warp points')
-    .argument('<point>', 'TODO')
+    .option('-f', '--force', 'force')
     .action((str, options) => {
         logger.log({ str, options });
     });
