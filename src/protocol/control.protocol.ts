@@ -7,8 +7,6 @@ export interface ControlProtocol {
   
   delete(point: string): Promise<void>;
 
-  show(point: string): Promise<PointMeta>;
-
   list(): Promise<PointMeta[]>;
 
   clean(): Promise<void>;
