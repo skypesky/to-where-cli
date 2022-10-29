@@ -1,15 +1,15 @@
 import { Command } from "commander";
 import { logger } from "../utils/logger";
 
-const addCommand = new Command();
+const listCommand = new Command();
 
-addCommand.name('add')
+listCommand.name('list')
   .description('Adds the current working directory to your warp points')
-  .argument('<point>', 'TODO')
+  .argument('[point]', 'TODO')
   .action((str, options) => {
-      logger.log({ str, options });
+      logger.log({ str, point: options.point });
   });
 
 export {
-  addCommand
+  listCommand 
 }

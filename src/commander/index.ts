@@ -1,6 +1,12 @@
 import { program } from 'commander';
 import * as packageJson from '../../package.json';
 import { logger } from '../utils/logger';
+import { addCommand } from './add';
+import { cleanCommand } from './clean';
+import { listCommand } from './list';
+import { removeCommand } from './rm';
+
+// @see: https://www.npmjs.com/package/commander
 
 program.name("td").description('ABC').version(packageJson.version);
 
@@ -10,32 +16,9 @@ program.command("<point>")
         logger.log({ str, options });
     });
 
-program.command('add')
-    .description('Adds the current working directory to your warp points')
-    .argument('<point>', 'TODO')
-    .action((str, options) => {
-        logger.log({ str, options });
-    });
+program.addCommand(addCommand);
+program.addCommand(removeCommand)
+program.addCommand(listCommand);
+program.addCommand(cleanCommand);
 
-program.command('rm')
-    .description('Adds the current working directory to your warp points')
-    .argument('<point>', 'TODO')
-    .action((str, options) => {
-        logger.log({ str, options });
-    });
-
-program.command('list')
-    .description('Adds the current working directory to your warp points')
-    .argument('<point>', 'TODO')
-    .action((str, options) => {
-        logger.log({ str, options });
-    });
-
-program.command('clean')
-    .description('Adds the current working directory to your warp points')
-    .option('-f', '--force', 'force')
-    .action((str, options) => {
-        logger.log({ str, options });
-    });
-
-program.parse();
+program.parseAsync();
