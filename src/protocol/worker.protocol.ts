@@ -1,9 +1,19 @@
 import { PointMeta } from "../meta";
 
+export interface AddOptions extends PointMeta {
+  /**
+   *
+   * @default false
+   * @type {boolean}
+   * @memberof AddOptions
+   */
+  force: boolean;
+}
+
 export interface WorkerProtocol {
   cd(point: string): Promise<void>;
 
-  create(point: string, path: string, force: boolean): Promise<PointMeta>;
+  add(options: AddOptions): Promise<PointMeta>;
 
   delete(point: string): Promise<void>;
 
