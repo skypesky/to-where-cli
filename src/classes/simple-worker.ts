@@ -13,8 +13,14 @@ export class SimpleWorker implements WorkerProtocol {
     this.config = new SimpleConfig();
   }
 
-  cd(point: string): Promise<void> {
-    throw new Error("Method not implemented.");
+  async cd(point: string): Promise<void> {
+    const pointMeta = await this.config.findOne(point);
+
+    if (!pointMeta) {
+      logger.error("不存在的endpoint");
+      process.exit(1);
+    }
+    logger.info(pointMeta);
   }
   async add(options: AddOptions): Promise<PointMeta> {
     const exits = await this.config.exists(options.point);
@@ -24,21 +30,21 @@ export class SimpleWorker implements WorkerProtocol {
       process.exit(1);
     }
 
-    const meta = pick(options, ["point", "path"]);
+    const pointMeta = pick(options, ["point", "path"]);
 
-    await this.config.add(meta);
-    return meta;
+    await this.config.add(pointMeta);
+    return pointMeta;
   }
 
-  delete(point: string): Promise<void> {
-    throw new Error("Method not implemented.");
+  async delete(point: string): Promise<void> {
+    await this.config.delete(point);
   }
 
-  list(): Promise<PointMeta[]> {
-    throw new Error("Method not implemented.");
+  async list(): Promise<PointMeta[]> {
+    return this.config.findAll();
   }
 
-  clean(): Promise<void> {
+  async clean(): Promise<void> {
     throw new Error("Method not implemented.");
   }
 }
