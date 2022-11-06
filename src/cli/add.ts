@@ -1,5 +1,7 @@
-import { SimpleWorker } from "./../classes/simple-worker";
+import { SimpleWorker } from "../classes/simple-worker";
+import { basename } from "path";
 import { Command } from "commander";
+import { ActionOptions } from "../meta/actions-options";
 
 const addCommand = new Command();
 
@@ -7,14 +9,16 @@ addCommand
   .name("add")
   .description("Adds the current working directory to your warp points")
   .option("-f, --force", "TODO", false)
-  .action((str, options) => {
-    let [point] = options.args;
+  .action((str: string, options: ActionOptions) => {
+    let [point, path] = options.args;
 
     if (!point) {
-      point = "test";
+      path = process.cwd();
+      point = basename(path);
+    } else if (!path) {
+      path = process.cwd();
     }
 
-    const path = process.cwd();
     const force = options.opts().force;
 
     new SimpleWorker().add({

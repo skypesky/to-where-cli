@@ -1,1 +1,3 @@
-pointMetas: []
+pointMetas:
+  - point: test
+    path: /Users/skypesky/workSpaces/javascript/github/td

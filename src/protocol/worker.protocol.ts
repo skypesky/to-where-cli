@@ -17,7 +17,7 @@ export interface WorkerProtocol {
 
   delete(point: string): Promise<void>;
 
-  list(): Promise<PointMeta[]>;
+  list(): Promise<void>;
 
   clean(): Promise<void>;
 }

@@ -23,6 +23,7 @@ export class SimpleWorker implements WorkerProtocol {
     }
     logger.info(pointMeta);
   }
+
   async add(options: AddOptions): Promise<PointMeta> {
     const exits = await this.config.exists(options.point);
 
@@ -32,8 +33,9 @@ export class SimpleWorker implements WorkerProtocol {
     }
 
     const pointMeta = pick(options, ["point", "path"]);
-
     await this.config.add(pointMeta);
+
+    logger.info(`added ${pointMeta.point} => ${pointMeta.path}`);
     return pointMeta;
   }
 
@@ -41,20 +43,41 @@ export class SimpleWorker implements WorkerProtocol {
     await this.config.delete(point);
   }
 
-  async list(): Promise<PointMeta[]> {
-    return this.config.findAll();
+  async list(point?: string): Promise<void> {
+    if (point) {
+      const pointMeta = await this.config.findOne(point);
+
+      if (!pointMeta) {
+        // FIXME: this should
+        logger.info("TODO point not found!");
+        process.exit(1);
+      }
+
+      logger.info(`${pointMeta.point} => ${pointMeta.path}`);
+      return;
+    }
+
+    const pointMetas = await this.config.findAll();
+
+    for (const pointMeta of pointMetas) {
+      logger.info(`${pointMeta.point} => ${pointMeta.path}`);
+    }
   }
 
-  async clean(force: boolean = false): Promise<void> {
+  async clean(force: boolean = false, all: boolean = false): Promise<void> {
     if (!force) {
-      throw new Error("force = true");
+      logger.error("force = true");
+      process.exit(1);
     }
 
     const configMetas: ConfigMeta = await this.config.get();
-
-    configMetas.pointMetas = configMetas.pointMetas.filter((p) =>
-      fs.existsSync(p.path)
-    );
+    if (all) {
+      configMetas.pointMetas.length = 0;
+    } else {
+      configMetas.pointMetas = configMetas.pointMetas.filter((p) =>
+        fs.existsSync(p.path)
+      );
+    }
 
     await this.config.set(configMetas);
   }
