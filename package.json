@@ -10,7 +10,7 @@
     "typescript": "^4.8.4"
   },
   "scripts": {
-    "debug": "ts-node src/commander/index.ts"
+    "debug": "ts-node src/cli/index.ts"
   },
   "dependencies": {
     "commander": "^9.4.1",
