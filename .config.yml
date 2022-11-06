@@ -1,6 +1,1 @@
-pointMetas:
-  - point: test
-    path: test-path
-    force: false
-  - point: test
-    path: test-path
+pointMetas: []

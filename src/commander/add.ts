@@ -1,6 +1,5 @@
 import { SimpleWorker } from "./../classes/simple-worker";
 import { Command } from "commander";
-import { logger } from "../utils/logger";
 
 const addCommand = new Command();
 
@@ -15,7 +14,7 @@ addCommand
       point = "test";
     }
 
-    const path = "test-path";
+    const path = process.cwd();
     const force = options.opts().force;
 
     new SimpleWorker().add({

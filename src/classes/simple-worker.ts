@@ -1,10 +1,11 @@
 import { AddOptions } from "./../protocol/worker.protocol";
 import { SimpleConfig, SimpleConfigOptions } from "./simple-config";
-import { PointMeta } from "../meta";
+import { ConfigMeta, PointMeta } from "../meta";
 import { ConfigProtocol } from "../protocol/config.protocol";
 import { WorkerProtocol } from "../protocol/worker.protocol";
 import { logger } from "../utils/logger";
-import { omit, pick } from "lodash";
+import { pick } from "lodash";
+import fs from "fs-extra";
 
 export class SimpleWorker implements WorkerProtocol {
   private readonly config: ConfigProtocol;
@@ -44,7 +45,17 @@ export class SimpleWorker implements WorkerProtocol {
     return this.config.findAll();
   }
 
-  async clean(): Promise<void> {
-    throw new Error("Method not implemented.");
+  async clean(force: boolean = false): Promise<void> {
+    if (!force) {
+      throw new Error("force = true");
+    }
+
+    const configMetas: ConfigMeta = await this.config.get();
+
+    configMetas.pointMetas = configMetas.pointMetas.filter((p) =>
+      fs.existsSync(p.path)
+    );
+
+    await this.config.set(configMetas);
   }
 }
