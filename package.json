@@ -2,11 +2,10 @@
   "name": "td",
   "version": "0.0.1",
   "bin": {
-    "td": "dist/src/cli/index.js"
+    "td": "./dist/src/cli/index.js"
   },
   "scripts": {
-    "debug": "ts-node src/cli/index.ts",
-    "ls": "sudo ln -s -f /Users/skypesky/workSpaces/javascript/github/td/dist/src/cli/index.js /usr/local/bin/td",
+    "debug": "npm run build && npm install -g .",
     "clean": "rm -fr dist",
     "prebuild": "npm run clean",
     "build": "tsc"
