@@ -1,5 +1,5 @@
 import { AddOptions } from "./../protocol/worker.protocol";
-import { SimpleConfig, SimpleConfigOptions } from "./simple-config";
+import { SimpleConfig } from "./simple-config";
 import { ConfigMeta, PointMeta } from "../meta";
 import { ConfigProtocol } from "../protocol/config.protocol";
 import { WorkerProtocol } from "../protocol/worker.protocol";
@@ -64,7 +64,7 @@ export class SimpleWorker implements WorkerProtocol {
     }
   }
 
-  async clean(force: boolean = false, all: boolean = false): Promise<void> {
+  async clean(force = false, all = false): Promise<void> {
     if (!force) {
       logger.error("force = true");
       process.exit(1);
