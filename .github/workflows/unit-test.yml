@@ -1,0 +1,30 @@
+name: integration
+
+on: [push]
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+
+    if: "! contains(toJSON(github.event.commits.*.message), '[skip actions]')"
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Use Node.js v16
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Set Yarn cache
+        uses: c-hive/gha-yarn-cache@v2
+
+      - name: Install deps
+        run: yarn
+
+      - name: Lint package
+        run: npm run lint
+
+      - name: Run unit test
+        run: npm run test
