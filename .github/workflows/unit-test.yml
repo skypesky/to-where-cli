@@ -1,6 +1,6 @@
 name: integration
 
-on: [pull_request]
+on: [push]
 
 jobs:
   integration:
@@ -25,3 +25,6 @@ jobs:
 
       - name: Lint package
         run: npm run lint
+
+      - name: Run unit test
+        run: npm run test
