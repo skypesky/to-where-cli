@@ -1,4 +1,4 @@
-name: lint-pull-request
+name: check-pr-title
 on:
   pull_request:
     types:
