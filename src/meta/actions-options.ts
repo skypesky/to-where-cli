@@ -1,4 +1,4 @@
 export interface ActionOptions {
-  opts: () => any;
+  opts: () => Record<string, string | boolean>;
   args: string[];
 }

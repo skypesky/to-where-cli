@@ -1,2 +1,1 @@
-
-export * from './simple-worker'
+export * from "./simple-worker";

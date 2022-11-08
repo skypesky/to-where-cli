@@ -1,6 +1,5 @@
 import { SimpleWorker } from "../classes/simple-worker";
 import { Command } from "commander";
-import { logger } from "../utils/logger";
 
 const listCommand = new Command();
 
