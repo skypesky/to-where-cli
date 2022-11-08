@@ -1,30 +1,34 @@
-import { fstat } from "fs";
 import { ConfigMeta, PointMeta } from "../meta";
 import { ConfigProtocol } from "./../protocol/config.protocol";
 import yaml from "js-yaml";
 import { ensureFileSync, outputFile, readFile } from "fs-extra";
 import { isUndefined } from "lodash";
+import { join } from "path";
+import { homedir } from "os";
 
 export interface SimpleConfigOptions {
-  filename: string;
+  configPath: string;
 }
 
 export class SimpleConfig implements ConfigProtocol {
   private readonly options: SimpleConfigOptions = {} as SimpleConfigOptions;
-
-  private readonly filename = ".config.yml";
+  public static readonly DEFAULT_CONFIG_PATH: string = join(
+    homedir(),
+    ".config.yml"
+  );
 
   constructor(options: SimpleConfigOptions = {} as SimpleConfigOptions) {
-    this.options.filename = options.filename ?? ".config.yml";
-    ensureFileSync(this.options.filename);
+    this.options.configPath =
+      options.configPath ?? SimpleConfig.DEFAULT_CONFIG_PATH;
+    ensureFileSync(this.options.configPath);
   }
 
   async set(configMeta: ConfigMeta): Promise<void> {
-    await outputFile(this.options.filename, yaml.dump(configMeta));
+    await outputFile(this.options.configPath, yaml.dump(configMeta));
   }
 
   async get(): Promise<ConfigMeta> {
-    const yamlStr = await readFile(this.options.filename, "utf-8");
+    const yamlStr = await readFile(this.options.configPath, "utf-8");
 
     const configMeta: ConfigMeta =
       <ConfigMeta>yaml.load(yamlStr) ?? <ConfigMeta>{};

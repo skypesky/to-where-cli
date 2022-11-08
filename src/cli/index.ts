@@ -2,7 +2,7 @@
 
 import { program } from "commander";
 import * as packageJson from "../../package.json";
-import { logger } from "../utils/logger";
+import { SimpleWorker } from "../classes";
 import { addCommand } from "./add";
 import { cleanCommand } from "./clean";
 import { listCommand } from "./list";
@@ -10,13 +10,17 @@ import { removeCommand } from "./rm";
 
 // @see: https://www.npmjs.com/package/commander
 
-program.name("td").description("ABC").version(packageJson.version);
-
 program
-  .command("<point>")
-  .description("Warps to the directory specified by the warp point")
-  .action((str, options) => {
-    logger.log({ str, options });
+  .name("td")
+  .description("ABC")
+  .version(packageJson.version)
+  .argument("[point]", "point todo")
+  .action(async (point: string) => {
+    if (!point) {
+      program.help();
+    }
+
+    await new SimpleWorker().cd(point);
   });
 
 program.addCommand(addCommand);

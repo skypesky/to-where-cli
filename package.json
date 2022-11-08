@@ -5,10 +5,12 @@
     "td": "./dist/src/cli/index.js"
   },
   "scripts": {
-    "debug": "npm run build && npm install -g .",
+    "predebug": "npm run build",
+    "debug": "node ./dist/src/cli/index.js",
     "clean": "rm -fr dist",
     "prebuild": "npm run clean",
-    "build": "tsc"
+    "build": "tsc",
+    "deploy": "npm run build && npm uninstall -g td && npm install -g . -f"
   },
   "dependencies": {
     "commander": "^9.4.1",
