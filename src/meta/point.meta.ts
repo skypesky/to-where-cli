@@ -1,5 +1,4 @@
-
 export interface PointMeta {
   point: string;
-  path: string;
+  dir: string;
 }

@@ -65,7 +65,7 @@ export class SimpleConfig implements ConfigProtocol {
 
     for (const meta of configMeta.pointMetas) {
       if (meta.point === pointMeta.point) {
-        meta.path = pointMeta.path;
+        meta.dir = pointMeta.dir;
         break;
       }
     }

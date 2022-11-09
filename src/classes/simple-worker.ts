@@ -6,6 +6,9 @@ import { WorkerProtocol } from "../protocol/worker.protocol";
 import { logger } from "../utils/logger";
 import { pick } from "lodash";
 import fs from "fs-extra";
+import chalk from "chalk";
+import $ from "shelljs";
+import exec from "shelljs.exec";
 
 export class SimpleWorker implements WorkerProtocol {
   private readonly config: ConfigProtocol;
@@ -18,10 +21,13 @@ export class SimpleWorker implements WorkerProtocol {
     const pointMeta = await this.config.findOne(point);
 
     if (!pointMeta) {
-      logger.error("不存在的endpoint");
+      logger.error(`Unknown point: ${chalk.red(point)}`);
       process.exit(1);
     }
-    logger.info(pointMeta);
+
+    exec(`cd ${pointMeta.dir}`);
+    logger.info("{ str: str ab}");
+    process.exit(0);
   }
 
   async add(options: AddOptions): Promise<PointMeta> {
@@ -32,10 +38,10 @@ export class SimpleWorker implements WorkerProtocol {
       process.exit(1);
     }
 
-    const pointMeta = pick(options, ["point", "path"]);
+    const pointMeta = pick(options, ["point", "dir"]);
     await this.config.add(pointMeta);
 
-    logger.info(`added ${pointMeta.point} => ${pointMeta.path}`);
+    logger.info(`added ${pointMeta.point} => ${pointMeta.dir}`);
     return pointMeta;
   }
 
@@ -53,14 +59,14 @@ export class SimpleWorker implements WorkerProtocol {
         process.exit(1);
       }
 
-      logger.info(`${pointMeta.point} => ${pointMeta.path}`);
+      logger.info(`${pointMeta.point} => ${pointMeta.dir}`);
       return;
     }
 
     const pointMetas = await this.config.findAll();
 
     for (const pointMeta of pointMetas) {
-      logger.info(`${pointMeta.point} => ${pointMeta.path}`);
+      logger.info(`${pointMeta.point} => ${pointMeta.dir}`);
     }
   }
 
@@ -75,7 +81,7 @@ export class SimpleWorker implements WorkerProtocol {
       configMetas.pointMetas.length = 0;
     } else {
       configMetas.pointMetas = configMetas.pointMetas.filter((p) =>
-        fs.existsSync(p.path)
+        fs.existsSync(p.dir)
       );
     }
 
