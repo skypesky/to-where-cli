@@ -1,8 +1,8 @@
 {
-  "name": "td",
+  "name": "tw",
   "version": "0.0.1",
   "bin": {
-    "td": "./dist/src/cli/index.js"
+    "tw": "./dist/src/cli/index.js"
   },
   "scripts": {
     "predebug": "npm run build",
