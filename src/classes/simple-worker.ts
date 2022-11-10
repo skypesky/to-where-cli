@@ -7,8 +7,7 @@ import { logger } from "../utils/logger";
 import { pick } from "lodash";
 import fs from "fs-extra";
 import chalk from "chalk";
-import $ from "shelljs";
-import exec from "shelljs.exec";
+import open from "open";
 
 export class SimpleWorker implements WorkerProtocol {
   private readonly config: ConfigProtocol;
@@ -25,8 +24,8 @@ export class SimpleWorker implements WorkerProtocol {
       process.exit(1);
     }
 
-    exec(`cd ${pointMeta.dir}`);
-    logger.info("{ str: str ab}");
+    await open(pointMeta.dir);
+
     process.exit(0);
   }
 
