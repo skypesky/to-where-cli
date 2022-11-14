@@ -4,6 +4,9 @@
   "bin": {
     "tw": "./dist/src/cli/index.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "predebug": "npm run build",
     "debug": "node ./dist/src/cli/index.js",
