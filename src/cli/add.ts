@@ -22,8 +22,8 @@ addCommand
     const force = <boolean>options.opts().force;
 
     new SimpleWorker().add({
-      point,
-      dir: dir,
+      alias: point,
+      address: dir,
       force,
     });
   });

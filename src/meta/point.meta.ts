@@ -1,4 +1,4 @@
-export interface PointMeta {
-  point: string;
-  dir: string;
+export interface Point {
+  alias: string;
+  address: string;
 }

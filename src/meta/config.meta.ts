@@ -1,6 +1,5 @@
+import { Point } from "./point.meta";
 
-import {PointMeta} from './point.meta';
-
-export interface ConfigMeta {
-    pointMetas: PointMeta[];
+export interface Config {
+  points: Point[];
 }
