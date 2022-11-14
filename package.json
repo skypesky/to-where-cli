@@ -14,7 +14,7 @@
     "clean": "rm -fr dist",
     "prebuild": "npm run clean",
     "build": "tsc",
-    "deploy": "npm run build && npm uninstall -g td && npm install -g . -f"
+    "deploy": "npm run build && npm uninstall -g tw && npm install -g . -f"
   },
   "dependencies": {
     "chalk": "~4",

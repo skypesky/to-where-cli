@@ -5,6 +5,7 @@ import { ensureFileSync, outputFile, readFile } from "fs-extra";
 import { isUndefined } from "lodash";
 import { join } from "path";
 import { homedir } from "os";
+import { logger } from "../utils/logger";
 
 export interface SimpleConfigOptions {
   configPath: string;
@@ -45,9 +46,8 @@ export class SimpleConfig implements ConfigProtocol {
       await this.update(pointMeta);
     } else {
       configMeta.pointMetas.push(pointMeta);
+      await this.set(configMeta);
     }
-
-    await this.set(configMeta);
   }
 
   async delete(point: string): Promise<void> {
@@ -63,12 +63,14 @@ export class SimpleConfig implements ConfigProtocol {
   async update(pointMeta: PointMeta): Promise<void> {
     const configMeta: ConfigMeta = await this.get();
 
-    for (const meta of configMeta.pointMetas) {
-      if (meta.point === pointMeta.point) {
-        meta.dir = pointMeta.dir;
+    for (const element of configMeta.pointMetas) {
+      if (element.point === pointMeta.point) {
+        element.dir = pointMeta.dir;
         break;
       }
     }
+
+    logger.info("update", JSON.stringify(configMeta, null, 2));
 
     await this.set(configMeta);
   }

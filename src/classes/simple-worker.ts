@@ -33,7 +33,11 @@ export class SimpleWorker implements WorkerProtocol {
     const exits = await this.config.exists(options.point);
 
     if (exits && !options.force) {
-      logger.error("重复了，除非你使用 --force");
+      logger.error(
+        `Point(${chalk.blue(
+          options.point
+        )}) already exists, you can use '-f' or '--force' to overwrite it`
+      );
       process.exit(1);
     }
 
