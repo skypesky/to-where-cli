@@ -11,7 +11,7 @@ export interface AddOptions extends Point {
 }
 
 export interface WorkerProtocol {
-  cd(point: string): Promise<void>;
+  open(point: string): Promise<void>;
 
   add(options: AddOptions): Promise<Point>;
 

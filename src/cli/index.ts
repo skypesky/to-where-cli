@@ -20,7 +20,7 @@ program
       program.help();
     }
 
-    await new SimpleWorker().cd(point);
+    await new SimpleWorker().open(point);
   });
 
 program.addCommand(addCommand);

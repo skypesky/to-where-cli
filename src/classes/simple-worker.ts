@@ -16,7 +16,7 @@ export class SimpleWorker implements WorkerProtocol {
     this.config = new SimpleConfig();
   }
 
-  async cd(point: string): Promise<void> {
+  async open(point: string): Promise<void> {
     const _point = await this.config.findOne(point);
 
     if (!_point) {
