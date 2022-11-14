@@ -49,7 +49,12 @@ export class SimpleWorker implements WorkerProtocol {
   }
 
   async delete(point: string): Promise<void> {
+    if (!(await this.config.exists(point))) {
+      logger.error(`Point ${chalk.red(point)} was not found`);
+      process.exit(1);
+    }
     await this.config.delete(point);
+    logger.info(`Point ${chalk.blue(point)} has been removed`);
   }
 
   async list(point?: string): Promise<void> {
@@ -57,19 +62,22 @@ export class SimpleWorker implements WorkerProtocol {
       const pointMeta = await this.config.findOne(point);
 
       if (!pointMeta) {
-        // FIXME: this should
-        logger.info("TODO point not found!");
+        logger.error(`Point ${chalk.red(pointMeta.point)} was not found`);
         process.exit(1);
       }
 
-      logger.info(`${pointMeta.point} => ${pointMeta.dir}`);
-      return;
+      logger.info(
+        `${chalk.blue(pointMeta.point)} => ${chalk.cyan(pointMeta.dir)}`
+      );
+      process.exit();
     }
 
     const pointMetas = await this.config.findAll();
 
     for (const pointMeta of pointMetas) {
-      logger.info(`${pointMeta.point} => ${pointMeta.dir}`);
+      logger.info(
+        `${chalk.blue(pointMeta.point)} => ${chalk.cyan(pointMeta.dir)}`
+      );
     }
   }
 

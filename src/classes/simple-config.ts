@@ -58,6 +58,8 @@ export class SimpleConfig implements ConfigProtocol {
         configMeta.pointMetas.splice(i, 1);
       }
     }
+
+    await this.set(configMeta);
   }
 
   async update(pointMeta: PointMeta): Promise<void> {
@@ -69,8 +71,6 @@ export class SimpleConfig implements ConfigProtocol {
         break;
       }
     }
-
-    logger.info("update", JSON.stringify(configMeta, null, 2));
 
     await this.set(configMeta);
   }
