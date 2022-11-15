@@ -74,11 +74,11 @@ export class SimpleConfig implements ConfigProtocol {
   }
 
   async exists(alias: string): Promise<boolean> {
-    const _alias = await this.findOne(alias);
+    const _alias = await this.find(alias);
     return !isUndefined(_alias);
   }
 
-  async findOne(alias: string): Promise<Point | undefined> {
+  async find(alias: string): Promise<Point | undefined> {
     const points: Point[] = await this.findAll();
     return points.find((p) => p.alias === alias);
   }
@@ -86,5 +86,12 @@ export class SimpleConfig implements ConfigProtocol {
   async findAll(): Promise<Point[]> {
     const config: Config = await this.get();
     return config.points;
+  }
+
+  async deleteAll(): Promise<void> {
+    const configs: Config = await this.get();
+    configs.points.length = 0;
+
+    await this.set(configs);
   }
 }

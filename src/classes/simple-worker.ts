@@ -16,7 +16,7 @@ export class SimpleWorker implements WorkerProtocol {
   }
 
   async open(alias: string): Promise<void> {
-    const _point = await this.config.findOne(alias);
+    const _point = await this.config.find(alias);
 
     if (!_point) {
       logger.error(`Alias ${chalk.red(alias)} was not found`);
@@ -58,7 +58,7 @@ export class SimpleWorker implements WorkerProtocol {
 
   async list(point?: string): Promise<void> {
     if (point) {
-      const _point = await this.config.findOne(point);
+      const _point = await this.config.find(point);
 
       if (!_point) {
         logger.error(`Alias ${chalk.red(_point.alias)} was not found`);
@@ -86,9 +86,6 @@ export class SimpleWorker implements WorkerProtocol {
       process.exit(1);
     }
 
-    const configs: Config = await this.config.get();
-    configs.points.length = 0;
-
-    await this.config.set(configs);
+    await this.config.deleteAll();
   }
 }

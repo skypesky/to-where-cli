@@ -6,10 +6,12 @@ export interface ConfigProtocol {
   get(): Promise<Config>;
 
   add(point: Point): Promise<void>;
-  delete(alias: string): Promise<void>;
   update(point: Point): Promise<void>;
 
   exists(alias: string): Promise<boolean>;
-  findOne(alias: string): Promise<Point | undefined>;
+  find(alias: string): Promise<Point | undefined>;
   findAll(): Promise<Point[]>;
+
+  delete(alias: string): Promise<void>;
+  deleteAll(): Promise<void>;
 }
