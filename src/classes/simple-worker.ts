@@ -34,9 +34,9 @@ export class SimpleWorker implements WorkerProtocol {
 
     if (exits && !options.force) {
       logger.error(
-        `Alias(${chalk.blue(
+        `Alias ${chalk.red(
           options.alias
-        )}) already exists, you can use '-f' or '--force' to overwrite it`
+        )} already exists, you can use '-f' or '--force' to overwrite it`
       );
       process.exit(1);
     }
