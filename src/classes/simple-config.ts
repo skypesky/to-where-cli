@@ -48,11 +48,11 @@ export class SimpleConfig implements ConfigProtocol {
     }
   }
 
-  async delete(point: string): Promise<void> {
+  async delete(alias: string): Promise<void> {
     const config: Config = await this.get();
 
     for (let i = 0; i < config.points.length; i++) {
-      if (config.points[i].alias === point) {
+      if (config.points[i].alias === alias) {
         config.points.splice(i, 1);
       }
     }
@@ -73,14 +73,14 @@ export class SimpleConfig implements ConfigProtocol {
     await this.set(config);
   }
 
-  async exists(point: string): Promise<boolean> {
-    const _point = await this.findOne(point);
-    return !isUndefined(_point);
+  async exists(alias: string): Promise<boolean> {
+    const _alias = await this.findOne(alias);
+    return !isUndefined(_alias);
   }
 
-  async findOne(point: string): Promise<Point | undefined> {
+  async findOne(alias: string): Promise<Point | undefined> {
     const points: Point[] = await this.findAll();
-    return points.find((p) => p.alias === point);
+    return points.find((p) => p.alias === alias);
   }
 
   async findAll(): Promise<Point[]> {

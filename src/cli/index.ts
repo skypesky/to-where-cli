@@ -12,15 +12,14 @@ import { removeCommand } from "./rm";
 
 program
   .name("td")
-  .description("ABC")
   .version(packageJson.version)
-  .argument("[point]", "point todo")
-  .action(async (point: string) => {
-    if (!point) {
+  .argument("[alias]", "Give your address an alias")
+  .action(async (alias: string) => {
+    if (!alias) {
       program.help();
     }
 
-    await new SimpleWorker().open(point);
+    await new SimpleWorker().open(alias);
   });
 
 program.addCommand(addCommand);

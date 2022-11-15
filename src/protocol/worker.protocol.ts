@@ -11,11 +11,11 @@ export interface AddOptions extends Point {
 }
 
 export interface WorkerProtocol {
-  open(point: string): Promise<void>;
+  open(alias: string): Promise<void>;
 
   add(options: AddOptions): Promise<Point>;
 
-  delete(point: string): Promise<void>;
+  delete(alias: string): Promise<void>;
 
   list(): Promise<void>;
 

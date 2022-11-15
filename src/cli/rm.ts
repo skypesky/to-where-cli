@@ -7,8 +7,8 @@ removeCommand
   .name("rm")
   .description("Adds the current working directory to your warp points")
   .argument("<point>", "TODO")
-  .action((point: string) => {
-    new SimpleWorker().delete(point);
+  .action((alias: string) => {
+    new SimpleWorker().delete(alias);
   });
 
 export { removeCommand };
