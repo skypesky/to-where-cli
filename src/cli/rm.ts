@@ -5,7 +5,7 @@ const removeCommand = new Command();
 
 removeCommand
   .name("rm")
-  .description("Adds the current working directory to your warp points")
+  .description("Remove an alias from your address")
   .argument("<point>", "TODO")
   .action((alias: string) => {
     new SimpleWorker().delete(alias);

@@ -1,12 +1,13 @@
 import { SimpleWorker } from "../classes/simple-worker";
 import { Command } from "commander";
+import { ActionOptions } from "../meta/actions-options";
 
 const listCommand = new Command();
 
 listCommand
   .name("list")
-  .description("Adds the current working directory to your warp points")
-  .action(async (str, options) => {
+  .description("list existing aliases and addresses")
+  .action(async (str: string, options: ActionOptions) => {
     const [point] = options.args;
 
     await new SimpleWorker().list(point);

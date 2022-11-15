@@ -5,7 +5,6 @@ import { ConfigProtocol } from "../protocol/config.protocol";
 import { WorkerProtocol } from "../protocol/worker.protocol";
 import { logger } from "../utils/logger";
 import { pick } from "lodash";
-import fs from "fs-extra";
 import chalk from "chalk";
 import open from "open";
 
@@ -79,18 +78,16 @@ export class SimpleWorker implements WorkerProtocol {
     }
   }
 
-  async clean(force = false, all = false): Promise<void> {
+  async clean(force = false): Promise<void> {
     if (!force) {
-      logger.error("force = true");
+      logger.error(
+        "To make sure you know what you're doing, you must use '-f' or '--force' to empty"
+      );
       process.exit(1);
     }
 
     const configs: Config = await this.config.get();
-    if (all) {
-      configs.points.length = 0;
-    } else {
-      configs.points = configs.points.filter((p) => fs.existsSync(p.address));
-    }
+    configs.points.length = 0;
 
     await this.config.set(configs);
   }
