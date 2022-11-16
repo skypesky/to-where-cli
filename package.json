@@ -1,5 +1,5 @@
 {
-  "name": "as-cli",
+  "name": "to-where-cli",
   "version": "0.0.1",
   "bin": {
     "tw": "./dist/src/cli/index.js"
