@@ -6,7 +6,7 @@ const listCommand = new Command();
 
 listCommand
   .name("list")
-  .description("list existing aliases and addresses")
+  .description("List existing aliases and addresses")
   .action(async (str: string, options: ActionOptions) => {
     const [point] = options.args;
 

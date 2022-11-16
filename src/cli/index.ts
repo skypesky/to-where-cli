@@ -11,7 +11,7 @@ import { removeCommand } from "./rm";
 // @see: https://www.npmjs.com/package/commander
 
 program
-  .name("td")
+  .name("tw")
   .version(packageJson.version)
   .argument("[alias]", "Give your address an alias")
   .action(async (alias: string) => {

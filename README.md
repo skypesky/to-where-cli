@@ -1,28 +1,40 @@
-# td
+# to-where-cli
 
 ## install
 
 ```shell
-yarn install
+npm install -g to-where-cli
 ```
 
 ## usage
 
+
+- Add an alias to your address
+
 ```shell
-td add point1
+tw add home https://github.com/skypesky
 ```
 
-## structure
+- Open address by alias
 
 ```shell
-Usage: td [command] [point]
+tw home
+```
 
-Commands:
-    <point>         Warps to the directory specified by the warp point
-    add <point>     Adds the current working directory to your warp points
-    rm <point>      Removes the given warp point
-    ls <point>      Print all stored warp points
-    clean           Remove points warping to nonexistent directories (will prompt unless --force is used)
+- Update the address of the alias
 
-    help            Show this extremely helpful text
+```shell
+tw add home https://github.com/skypesky/leetcode-for-javascript -f
+```
+
+- List existing aliases and addresses
+
+```shell
+tw list
+```
+
+- Remove an alias from your address
+
+```shell
+tw rm home
 ```
