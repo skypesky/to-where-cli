@@ -1,31 +1,31 @@
-import {SimpleWorker} from '../classes/simple-worker';
-import {basename} from 'path';
-import {Command} from 'commander';
-import {ActionOptions} from '../meta/actions-options';
+import { SimpleWorker } from "../classes/simple-worker";
+import { basename } from "path";
+import { Command } from "commander";
+import { ActionOptions } from "../meta/actions-options";
 
 const addCommand = new Command();
 
 addCommand
-    .name('add')
-    .description('Adds the current working directory to your warp points')
-    .option('-f, --force', 'TODO', false)
-    .action((str: string, options: ActionOptions) => {
-      let [point, path] = options.args;
+  .name("add")
+  .description("Add an alias to your address")
+  .argument("[alias]", "Give your address an alias")
+  .argument("[address]", "your address")
+  .option("-f, --force", "Overwrite existing alias", false)
+  .action((point: string, address: string, options: ActionOptions) => {
+    if (!point) {
+      address = process.cwd();
+      point = basename(address);
+    } else if (!address) {
+      address = process.cwd();
+    }
 
-      if (!point) {
-        path = process.cwd();
-        point = basename(path);
-      } else if (!path) {
-        path = process.cwd();
-      }
+    const force = <boolean>options.force;
 
-      const force = options.opts().force;
-
-      new SimpleWorker().add({
-        point,
-        path,
-        force,
-      });
+    new SimpleWorker().add({
+      alias: point,
+      address: address,
+      force,
     });
+  });
 
-export {addCommand};
+export { addCommand };

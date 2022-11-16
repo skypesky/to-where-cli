@@ -11,16 +11,15 @@ import { removeCommand } from "./rm";
 // @see: https://www.npmjs.com/package/commander
 
 program
-  .name("td")
-  .description("ABC")
+  .name("tw")
   .version(packageJson.version)
-  .argument("[point]", "point todo")
-  .action(async (point: string) => {
-    if (!point) {
+  .argument("[alias]", "Give your address an alias")
+  .action(async (alias: string) => {
+    if (!alias) {
       program.help();
     }
 
-    await new SimpleWorker().cd(point);
+    await new SimpleWorker().open(alias);
   });
 
 program.addCommand(addCommand);

@@ -1,4 +1,4 @@
-import { ConfigMeta, PointMeta } from "../meta";
+import { Config, Point } from "../meta";
 import { ConfigProtocol } from "./../protocol/config.protocol";
 import yaml from "js-yaml";
 import { ensureFileSync, outputFile, readFile } from "fs-extra";
@@ -14,7 +14,7 @@ export class SimpleConfig implements ConfigProtocol {
   private readonly options: SimpleConfigOptions = {} as SimpleConfigOptions;
   public static readonly DEFAULT_CONFIG_PATH: string = join(
     homedir(),
-    ".config.yml"
+    ".tw.config.yml"
   );
 
   constructor(options: SimpleConfigOptions = {} as SimpleConfigOptions) {
@@ -23,68 +23,75 @@ export class SimpleConfig implements ConfigProtocol {
     ensureFileSync(this.options.configPath);
   }
 
-  async set(configMeta: ConfigMeta): Promise<void> {
-    await outputFile(this.options.configPath, yaml.dump(configMeta));
+  async set(config: Config): Promise<void> {
+    await outputFile(this.options.configPath, yaml.dump(config));
   }
 
-  async get(): Promise<ConfigMeta> {
+  async get(): Promise<Config> {
     const yamlStr = await readFile(this.options.configPath, "utf-8");
 
-    const configMeta: ConfigMeta =
-      <ConfigMeta>yaml.load(yamlStr) ?? <ConfigMeta>{};
+    const config: Config = <Config>yaml.load(yamlStr) ?? <Config>{};
 
-    configMeta.pointMetas = configMeta.pointMetas ?? [];
+    config.points = config.points ?? [];
 
-    return configMeta;
+    return config;
   }
 
-  async add(pointMeta: PointMeta): Promise<void> {
-    const configMeta: ConfigMeta = await this.get();
+  async add(point: Point): Promise<void> {
+    const config: Config = await this.get();
 
-    if (await this.exists(pointMeta.point)) {
-      await this.update(pointMeta);
+    if (await this.exists(point.alias)) {
+      await this.update(point);
     } else {
-      configMeta.pointMetas.push(pointMeta);
+      config.points.push(point);
+      await this.set(config);
     }
-
-    await this.set(configMeta);
   }
 
-  async delete(point: string): Promise<void> {
-    const configMeta: ConfigMeta = await this.get();
+  async delete(alias: string): Promise<void> {
+    const config: Config = await this.get();
 
-    for (let i = 0; i < configMeta.pointMetas.length; i++) {
-      if (configMeta.pointMetas[i].point === point) {
-        configMeta.pointMetas.splice(i, 1);
+    for (let i = 0; i < config.points.length; i++) {
+      if (config.points[i].alias === alias) {
+        config.points.splice(i, 1);
       }
     }
+
+    await this.set(config);
   }
 
-  async update(pointMeta: PointMeta): Promise<void> {
-    const configMeta: ConfigMeta = await this.get();
+  async update(point: Point): Promise<void> {
+    const config: Config = await this.get();
 
-    for (const meta of configMeta.pointMetas) {
-      if (meta.point === pointMeta.point) {
-        meta.path = pointMeta.path;
+    for (const element of config.points) {
+      if (element.alias === point.alias) {
+        element.address = point.address;
         break;
       }
     }
 
-    await this.set(configMeta);
+    await this.set(config);
   }
 
-  async exists(point: string): Promise<boolean> {
-    const pointMeta = await this.findOne(point);
-    return !isUndefined(pointMeta);
+  async exists(alias: string): Promise<boolean> {
+    const _alias = await this.find(alias);
+    return !isUndefined(_alias);
   }
 
-  async findOne(point: string): Promise<PointMeta | undefined> {
-    const pointMetas: PointMeta[] = await this.findAll();
-    return pointMetas.find((p) => p.point === point);
+  async find(alias: string): Promise<Point | undefined> {
+    const points: Point[] = await this.findAll();
+    return points.find((p) => p.alias === alias);
   }
 
-  async findAll(): Promise<PointMeta[]> {
-    const configMeta: ConfigMeta = await this.get();
-    return configMeta.pointMetas;
+  async findAll(): Promise<Point[]> {
+    const config: Config = await this.get();
+    return config.points;
+  }
+
+  async deleteAll(): Promise<void> {
+    const configs: Config = await this.get();
+    configs.points.length = 0;
+
+    await this.set(configs);
   }
 }

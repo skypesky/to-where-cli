@@ -1,11 +1,12 @@
 import { AddOptions } from "./../protocol/worker.protocol";
 import { SimpleConfig } from "./simple-config";
-import { ConfigMeta, PointMeta } from "../meta";
+import { Point } from "../meta";
 import { ConfigProtocol } from "../protocol/config.protocol";
 import { WorkerProtocol } from "../protocol/worker.protocol";
 import { logger } from "../utils/logger";
 import { pick } from "lodash";
-import fs from "fs-extra";
+import chalk from "chalk";
+import open from "open";
 
 export class SimpleWorker implements WorkerProtocol {
   private readonly config: ConfigProtocol;
@@ -14,71 +15,77 @@ export class SimpleWorker implements WorkerProtocol {
     this.config = new SimpleConfig();
   }
 
-  async cd(point: string): Promise<void> {
-    const pointMeta = await this.config.findOne(point);
+  async open(alias: string): Promise<void> {
+    const _point = await this.config.find(alias);
 
-    if (!pointMeta) {
-      logger.error("不存在的endpoint");
+    if (!_point) {
+      logger.error(`Alias ${chalk.red(alias)} was not found`);
       process.exit(1);
     }
-    logger.info(pointMeta);
+
+    await open(_point.address);
+
+    process.exit(0);
   }
 
-  async add(options: AddOptions): Promise<PointMeta> {
-    const exits = await this.config.exists(options.point);
+  async add(options: AddOptions): Promise<Point> {
+    const exits = await this.config.exists(options.alias);
 
     if (exits && !options.force) {
-      logger.error("重复了，除非你使用 --force");
+      logger.error(
+        `Alias ${chalk.red(
+          options.alias
+        )} already exists, you can use '-f' or '--force' to overwrite it`
+      );
       process.exit(1);
     }
 
-    const pointMeta = pick(options, ["point", "path"]);
-    await this.config.add(pointMeta);
+    const point = pick(options, ["alias", "address"]);
+    await this.config.add(point);
 
-    logger.info(`added ${pointMeta.point} => ${pointMeta.path}`);
-    return pointMeta;
+    logger.info(`added ${point.alias} => ${point.address}`);
+    return point;
   }
 
-  async delete(point: string): Promise<void> {
-    await this.config.delete(point);
+  async delete(alias: string): Promise<void> {
+    if (!(await this.config.exists(alias))) {
+      logger.error(`Alias ${chalk.red(alias)} was not found`);
+      process.exit(1);
+    }
+    await this.config.delete(alias);
+    logger.info(`Alias ${chalk.blue(alias)} has been removed`);
   }
 
   async list(point?: string): Promise<void> {
     if (point) {
-      const pointMeta = await this.config.findOne(point);
+      const _point = await this.config.find(point);
 
-      if (!pointMeta) {
-        // FIXME: this should
-        logger.info("TODO point not found!");
+      if (!_point) {
+        logger.error(`Alias ${chalk.red(_point.alias)} was not found`);
         process.exit(1);
       }
 
-      logger.info(`${pointMeta.point} => ${pointMeta.path}`);
-      return;
+      logger.info(
+        `${chalk.blue(_point.alias)} => ${chalk.cyan(_point.address)}`
+      );
+      process.exit();
     }
 
-    const pointMetas = await this.config.findAll();
+    const points = await this.config.findAll();
 
-    for (const pointMeta of pointMetas) {
-      logger.info(`${pointMeta.point} => ${pointMeta.path}`);
+    for (const point of points) {
+      logger.info(`${chalk.blue(point.alias)} => ${chalk.cyan(point.address)}`);
     }
   }
 
-  async clean(force = false, all = false): Promise<void> {
+  async clean(force = false): Promise<void> {
     if (!force) {
-      logger.error("force = true");
+      logger.error(
+        "To make sure you know what you're doing, you must use '-f' or '--force' to empty"
+      );
       process.exit(1);
     }
 
-    const configMetas: ConfigMeta = await this.config.get();
-    if (all) {
-      configMetas.pointMetas.length = 0;
-    } else {
-      configMetas.pointMetas = configMetas.pointMetas.filter((p) =>
-        fs.existsSync(p.path)
-      );
-    }
-
-    await this.config.set(configMetas);
+    await this.config.deleteAll();
   }
 }
