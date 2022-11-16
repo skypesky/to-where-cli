@@ -1,6 +1,6 @@
 import { AddOptions } from "./../protocol/worker.protocol";
 import { SimpleConfig } from "./simple-config";
-import { Config, Point } from "../meta";
+import { Point } from "../meta";
 import { ConfigProtocol } from "../protocol/config.protocol";
 import { WorkerProtocol } from "../protocol/worker.protocol";
 import { logger } from "../utils/logger";
