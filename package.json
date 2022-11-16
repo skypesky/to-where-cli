@@ -24,7 +24,8 @@
     "clean": "rm -fr dist",
     "prebuild": "npm run clean",
     "build": "tsc",
-    "deploy": "npm run build && npm uninstall -g to-where-cli && npm install -g . -f"
+    "deploy": "npm run build && npm uninstall -g to-where-cli && npm install -g . -f",
+    "deploy:remote": "npm uninstall -g to-where-cli && npm install -g to-where-cli"
   },
   "dependencies": {
     "chalk": "~4",
