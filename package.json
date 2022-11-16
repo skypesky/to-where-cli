@@ -1,11 +1,13 @@
 {
-  "name": "tw",
+  "name": "as-cli",
   "version": "0.0.1",
   "bin": {
     "tw": "./dist/src/cli/index.js"
   },
   "keywords": [
     "open",
+    "alias",
+    "system",
     "dir",
     "website"
   ],
