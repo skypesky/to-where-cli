@@ -4,6 +4,11 @@
   "bin": {
     "tw": "./dist/src/cli/index.js"
   },
+  "keywords": [
+    "open",
+    "dir",
+    "website"
+  ],
   "files": [
     "dist"
   ],
