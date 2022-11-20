@@ -1,5 +1,8 @@
 # to-where-cli
 
+Give your URL and folder an alias, and you can open your URL or folder through the alias in the future.
+
+
 ## install
 
 ```shell
@@ -37,4 +40,10 @@ tw list
 
 ```shell
 tw rm home
+```
+
+- Show help information
+
+```shell
+tw -h
 ```
