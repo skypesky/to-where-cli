@@ -11,7 +11,7 @@ export interface SimpleConfigOptions {
 }
 
 export class SimpleConfig implements ConfigProtocol {
-  private readonly options: SimpleConfigOptions = {} as SimpleConfigOptions;
+  public readonly options: SimpleConfigOptions = {} as SimpleConfigOptions;
   public static readonly DEFAULT_CONFIG_PATH: string = join(
     homedir(),
     ".tw.config.yml"
