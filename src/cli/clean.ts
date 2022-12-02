@@ -1,4 +1,4 @@
-import { SimpleWorker } from "../classes/simple-worker";
+import { simpleWorker, SimpleWorker } from "../classes/simple-worker";
 import { Command } from "commander";
 import { ActionOptions } from "../meta/actions-options";
 
@@ -10,7 +10,7 @@ cleanCommand
   .option("-f, --force", "force empty", false)
   .action(async (str, options: ActionOptions) => {
     const force = <boolean>options.opts().force;
-    await new SimpleWorker().clean(force);
+    await simpleWorker.clean(force);
   });
 
 export { cleanCommand };

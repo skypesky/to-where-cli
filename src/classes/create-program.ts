@@ -1,6 +1,6 @@
 import { Command } from "commander";
 import * as packageJson from "../../package.json";
-import { SimpleWorker } from ".";
+import { simpleWorker, SimpleWorker } from ".";
 import { addCommand } from "../cli/add";
 import { cleanCommand } from "../cli/clean";
 import { listCommand } from "../cli/list";
@@ -15,11 +15,12 @@ export function createProgram() {
     .version(packageJson.version)
     .argument("[alias]", "Give your address an alias")
     .action(async (alias: string) => {
-      if (!alias) {
-        program.help();
+      if (alias) {
+        await simpleWorker.open(alias);
+        return process.exit(0);
       }
 
-      await new SimpleWorker().open(alias);
+      program.help();
     });
 
   program.addCommand(addCommand);

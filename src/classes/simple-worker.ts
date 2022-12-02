@@ -89,3 +89,5 @@ export class SimpleWorker implements WorkerProtocol {
     await this.config.deleteAll();
   }
 }
+
+export const simpleWorker = new SimpleWorker();

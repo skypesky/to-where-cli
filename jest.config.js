@@ -9,6 +9,7 @@ module.exports = {
   transform: {
     "^.+\\.ts?$": "ts-jest",
   },
+  modulePathIgnorePatterns: ["<rootDir>/dist"],
   collectCoverageFrom: ["<rootDir>/src/**/*.ts"],
-  testMatch: ["**/tests/**/*.spec.ts"],
+  testMatch: ["<rootDir>/tests/**/*.spec.ts"],
 };

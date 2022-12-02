@@ -1,4 +1,4 @@
-import { SimpleWorker } from "./../classes/simple-worker";
+import { simpleWorker, SimpleWorker } from "./../classes/simple-worker";
 import { Command } from "commander";
 
 const removeCommand = new Command();
@@ -8,7 +8,7 @@ removeCommand
   .description("Remove an alias from your address")
   .argument("<point>", "TODO")
   .action((alias: string) => {
-    new SimpleWorker().delete(alias);
+    simpleWorker.delete(alias);
   });
 
 export { removeCommand };
