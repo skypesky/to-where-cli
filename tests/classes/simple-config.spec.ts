@@ -2,39 +2,55 @@ import yaml from "js-yaml";
 import { basename, join } from "path";
 import { SimpleConfig } from "../../src/classes/simple-config";
 import { existsSync } from "fs-extra";
+import { Config } from "../../src/meta";
 
 describe(basename(__filename), () => {
   const configPath = join(__dirname, "test.config.yaml");
 
-  beforeEach(() => {});
+  let simpleConfig: SimpleConfig;
+
+  beforeEach(() => {
+    simpleConfig = new SimpleConfig();
+  });
+
+  afterEach(async () => {
+    await simpleConfig.destroy();
+  });
 
   describe("#constructor", () => {
     it("should be create instance when no args", async () => {
-      const simpleConfig = new SimpleConfig();
-
       expect(existsSync(simpleConfig.options.configPath)).toBeTruthy();
-
-      await simpleConfig.destroy();
     });
   });
 
-  //describe("#set", () => {
-  //  it("should be set config when config.points is []", async () => {
-  //    const simpleConfig = new SimpleConfig();
-  //    const config: Config = {
-  //      points: [],
-  //    };
+  describe("#set", () => {
+    it("should be set config when not config", async () => {
+      const config: Config = {} as Config;
+      await simpleConfig.set(config);
 
-  //    await simpleConfig.set(config);
+      const currentConfig: Config = await simpleConfig.get();
 
-  //    expect(fsExtraMock.outputFile.mock.calls[0][0]).toContain(
-  //      simpleConfig.options.configPath
-  //    );
-  //    expect(fsExtraMock.outputFile.mock.calls[0][1]).toContain(
-  //      yaml.dump(config)
-  //    );
-  //  });
-  //});
+      expect(currentConfig).toStrictEqual({
+        points: [],
+      });
+    });
+
+    it("should be set config when has config.points", async () => {
+      const config: Config = {
+        points: [
+          {
+            alias: "home",
+            address: "/",
+          },
+        ],
+      };
+      await simpleConfig.set(config);
+
+      const currentConfig: Config = await simpleConfig.get();
+
+      expect(currentConfig).toStrictEqual(config);
+    });
+  });
 
   //describe("#get", () => {
   //  it("should be get config when config is empty", async () => {
