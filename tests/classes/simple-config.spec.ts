@@ -2,15 +2,19 @@ import yaml from "js-yaml";
 import { basename, join } from "path";
 import { SimpleConfig } from "../../src/classes/simple-config";
 import { existsSync } from "fs-extra";
-import { Config } from "../../src/meta";
+import { Config, Point } from "../../src/meta";
 
 describe(basename(__filename), () => {
   const configPath = join(__dirname, "test.config.yaml");
+  const point: Point = {
+    alias: "home",
+    address: "/",
+  };
 
   let simpleConfig: SimpleConfig;
 
   beforeEach(() => {
-    simpleConfig = new SimpleConfig();
+    simpleConfig = new SimpleConfig({ configPath });
   });
 
   afterEach(async () => {
@@ -37,12 +41,7 @@ describe(basename(__filename), () => {
 
     it("should be set config when has config.points", async () => {
       const config: Config = {
-        points: [
-          {
-            alias: "home",
-            address: "/",
-          },
-        ],
+        points: [point],
       };
       await simpleConfig.set(config);
 
@@ -52,35 +51,36 @@ describe(basename(__filename), () => {
     });
   });
 
-  //describe("#get", () => {
-  //  it("should be get config when config is empty", async () => {
-  //    const simpleConfig = new SimpleConfig();
+  describe("#get", () => {
+    it("should be get config when config is empty", async () => {
+      const config: Config = await simpleConfig.get();
 
-  //    const config: Config = await simpleConfig.get();
+      expect(config).toMatchObject({
+        points: [],
+      });
+    });
 
-  //    expect(fsExtraMock.readFile).toHaveBeenCalledWith(
-  //      simpleConfig.options.configPath,
-  //      "utf-8"
-  //    );
+    it("should be get config when has config", async () => {
+      const config: Config = {
+        points: [point],
+      };
+      await simpleConfig.set(config);
 
-  //    expect(config).toMatchObject({
-  //      points: [],
-  //    });
-  //  });
+      const currentConfig: Config = await simpleConfig.get();
 
-  //  it("should be get config when has config", async () => {
-  //    const simpleConfig = new SimpleConfig();
+      expect(currentConfig).toStrictEqual(config);
+    });
+  });
 
-  //    const config: Config = await simpleConfig.get();
+  describe("#add", () => {
+    it("should be add dynamic point when point does exists", async () => {
+      await simpleConfig.add(point);
 
-  //    expect(fsExtraMock.readFile).toHaveBeenCalledWith(
-  //      simpleConfig.options.configPath,
-  //      "utf-8"
-  //    );
+      const config: Config = await simpleConfig.get();
 
-  //    expect(config).toMatchObject({
-  //      points: [],
-  //    });
-  //  });
-  //});
+      expect(config).toMatchObject({
+        points: [point],
+      });
+    });
+  });
 });
