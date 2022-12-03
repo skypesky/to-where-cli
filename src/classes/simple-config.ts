@@ -1,10 +1,11 @@
 import { Config, Point } from "../meta";
 import { ConfigProtocol } from "./../protocol/config.protocol";
 import yaml from "js-yaml";
-import { ensureFileSync, outputFile, readFile } from "fs-extra";
+import { ensureFileSync, outputFile, readFile, removeSync } from "fs-extra";
 import { isUndefined } from "lodash";
 import { join } from "path";
 import { homedir } from "os";
+import { rm } from "fs";
 
 export interface SimpleConfigOptions {
   configPath: string;
@@ -93,5 +94,9 @@ export class SimpleConfig implements ConfigProtocol {
     configs.points.length = 0;
 
     await this.set(configs);
+  }
+
+  async destroy(): Promise<void> {
+    removeSync(this.options.configPath);
   }
 }
