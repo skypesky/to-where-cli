@@ -17,7 +17,7 @@ export interface WorkerProtocol {
 
   delete(alias: string): Promise<void>;
 
-  list(): Promise<void>;
+  list(alias?: string): Promise<void>;
 
-  clean(): Promise<void>;
+  clean(force?: boolean): Promise<void>;
 }
