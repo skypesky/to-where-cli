@@ -1,4 +1,4 @@
-import { simpleWorker, SimpleWorker } from "./../classes/simple-worker";
+import { simpleWorker } from "./../classes/simple-worker";
 import { Command } from "commander";
 
 const removeCommand = new Command();

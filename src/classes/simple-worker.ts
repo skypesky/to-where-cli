@@ -1,4 +1,3 @@
-import { Config } from "./../meta/config.meta";
 import { AddOptions } from "./../protocol/worker.protocol";
 import { SimpleConfig } from "./simple-config";
 import { Point } from "../meta";

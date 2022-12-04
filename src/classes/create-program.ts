@@ -1,6 +1,6 @@
 import { Command } from "commander";
 import * as packageJson from "../../package.json";
-import { simpleWorker, SimpleWorker } from ".";
+import { simpleWorker } from ".";
 import { addCommand } from "../cli/add";
 import { cleanCommand } from "../cli/clean";
 import { listCommand } from "../cli/list";

@@ -5,7 +5,6 @@ import { ensureFileSync, outputFile, readFile, removeSync } from "fs-extra";
 import { isUndefined } from "lodash";
 import { join } from "path";
 import { homedir } from "os";
-import { rm } from "fs";
 
 export interface SimpleConfigOptions {
   configPath: string;

@@ -26,7 +26,8 @@
     "build": "tsc",
     "build:watch": "npm run build -- -w",
     "deploy": "npm run build && npm uninstall -g to-where-cli && npm install -g . -f",
-    "deploy:remote": "npm uninstall -g to-where-cli && npm install -g to-where-cli"
+    "deploy:remote": "npm uninstall -g to-where-cli && npm install -g to-where-cli",
+    "verify": "npm run lint && npm run test"
   },
   "dependencies": {
     "chalk": "~4",
