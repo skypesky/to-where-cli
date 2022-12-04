@@ -11,8 +11,8 @@ import open from "open";
 export class SimpleWorker implements WorkerProtocol {
   private readonly config: ConfigProtocol;
 
-  constructor() {
-    this.config = new SimpleConfig();
+  constructor(config: ConfigProtocol = new SimpleConfig()) {
+    this.config = config;
   }
 
   async open(alias: string): Promise<void> {
@@ -20,12 +20,10 @@ export class SimpleWorker implements WorkerProtocol {
 
     if (!_point) {
       logger.error(`Alias ${chalk.red(alias)} was not found`);
-      process.exit(1);
+      return;
     }
 
     await open(_point.address);
-
-    process.exit(0);
   }
 
   async add(options: AddOptions): Promise<Point> {
@@ -37,7 +35,7 @@ export class SimpleWorker implements WorkerProtocol {
           options.alias
         )} already exists, you can use '-f' or '--force' to overwrite it`
       );
-      process.exit(1);
+      return;
     }
 
     const point = pick(options, ["alias", "address"]);
@@ -50,25 +48,25 @@ export class SimpleWorker implements WorkerProtocol {
   async delete(alias: string): Promise<void> {
     if (!(await this.config.exists(alias))) {
       logger.error(`Alias ${chalk.red(alias)} was not found`);
-      process.exit(1);
+      return;
     }
     await this.config.delete(alias);
     logger.info(`Alias ${chalk.blue(alias)} has been removed`);
   }
 
-  async list(point?: string): Promise<void> {
-    if (point) {
-      const _point = await this.config.find(point);
+  async list(alias?: string): Promise<void> {
+    if (alias) {
+      const _point = await this.config.find(alias);
 
       if (!_point) {
-        logger.error(`Alias ${chalk.red(_point.alias)} was not found`);
-        process.exit(1);
+        logger.error(`Alias ${chalk.red(alias)} was not found`);
+        return;
       }
 
       logger.info(
         `${chalk.blue(_point.alias)} => ${chalk.cyan(_point.address)}`
       );
-      process.exit();
+      return;
     }
 
     const points = await this.config.findAll();
@@ -83,9 +81,11 @@ export class SimpleWorker implements WorkerProtocol {
       logger.error(
         "To make sure you know what you're doing, you must use '-f' or '--force' to empty"
       );
-      process.exit(1);
+      return;
     }
 
     await this.config.deleteAll();
   }
 }
+
+export const simpleWorker = new SimpleWorker();

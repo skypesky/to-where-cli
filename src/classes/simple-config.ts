@@ -1,7 +1,7 @@
 import { Config, Point } from "../meta";
 import { ConfigProtocol } from "./../protocol/config.protocol";
 import yaml from "js-yaml";
-import { ensureFileSync, outputFile, readFile } from "fs-extra";
+import { ensureFileSync, outputFile, readFile, removeSync } from "fs-extra";
 import { isUndefined } from "lodash";
 import { join } from "path";
 import { homedir } from "os";
@@ -11,7 +11,7 @@ export interface SimpleConfigOptions {
 }
 
 export class SimpleConfig implements ConfigProtocol {
-  private readonly options: SimpleConfigOptions = {} as SimpleConfigOptions;
+  public readonly options: SimpleConfigOptions = {} as SimpleConfigOptions;
   public static readonly DEFAULT_CONFIG_PATH: string = join(
     homedir(),
     ".tw.config.yml"
@@ -93,5 +93,9 @@ export class SimpleConfig implements ConfigProtocol {
     configs.points.length = 0;
 
     await this.set(configs);
+  }
+
+  async destroy(): Promise<void> {
+    removeSync(this.options.configPath);
   }
 }

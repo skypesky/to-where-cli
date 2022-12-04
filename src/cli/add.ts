@@ -1,4 +1,4 @@
-import { SimpleWorker } from "../classes/simple-worker";
+import { simpleWorker } from "../classes/simple-worker";
 import { basename } from "path";
 import { Command } from "commander";
 import { ActionOptions } from "../meta/actions-options";
@@ -21,7 +21,7 @@ addCommand
 
     const force = <boolean>options.force;
 
-    new SimpleWorker().add({
+    simpleWorker.add({
       alias: point,
       address: address,
       force,

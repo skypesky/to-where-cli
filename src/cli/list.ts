@@ -1,4 +1,4 @@
-import { SimpleWorker } from "../classes/simple-worker";
+import { simpleWorker } from "../classes/simple-worker";
 import { Command } from "commander";
 import { ActionOptions } from "../meta/actions-options";
 
@@ -10,7 +10,7 @@ listCommand
   .action(async (str: string, options: ActionOptions) => {
     const [point] = options.args;
 
-    await new SimpleWorker().list(point);
+    await simpleWorker.list(point);
   });
 
 export { listCommand };

@@ -14,4 +14,6 @@ export interface ConfigProtocol {
 
   delete(alias: string): Promise<void>;
   deleteAll(): Promise<void>;
+
+  destroy(): Promise<void>;
 }

@@ -3,11 +3,11 @@ import { Point } from "../meta";
 export interface AddOptions extends Point {
   /**
    *
-   * @default false
+   *
    * @type {boolean}
    * @memberof AddOptions
    */
-  force: boolean;
+  force?: boolean;
 }
 
 export interface WorkerProtocol {
@@ -17,7 +17,7 @@ export interface WorkerProtocol {
 
   delete(alias: string): Promise<void>;
 
-  list(): Promise<void>;
+  list(alias?: string): Promise<void>;
 
-  clean(): Promise<void>;
+  clean(force?: boolean): Promise<void>;
 }
