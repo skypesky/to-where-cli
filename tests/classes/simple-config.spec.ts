@@ -82,5 +82,54 @@ describe(basename(__filename), () => {
         points: [point],
       });
     });
+
+    it("should be override dynamic point when point exists", async () => {
+      await simpleConfig.add({
+        ...point,
+        address: "/old",
+      });
+      await simpleConfig.add(point);
+
+      const config: Config = await simpleConfig.get();
+
+      expect(config).toMatchObject({
+        points: [point],
+      });
+    });
+  });
+
+  describe("#delete", () => {
+    it("should be work when point does exists", async () => {
+      await simpleConfig.delete(point.alias);
+      const latestConfig: Config = await simpleConfig.get();
+      expect(latestConfig).toMatchObject({
+        points: [],
+      });
+    });
+
+    it("should be delete point when point exists", async () => {
+      await simpleConfig.add(point);
+      const config: Config = await simpleConfig.get();
+      expect(config).toMatchObject({
+        points: [point],
+      });
+
+      await simpleConfig.delete(point.alias);
+      const latestConfig: Config = await simpleConfig.get();
+      expect(latestConfig).toMatchObject({
+        points: [],
+      });
+    });
+  });
+
+  describe("#deleteAll", () => {
+    it("should be work when point does exists", async () => {
+      await simpleConfig.add(point);
+      await simpleConfig.deleteAll();
+      const latestConfig: Config = await simpleConfig.get();
+      expect(latestConfig).toMatchObject({
+        points: [],
+      });
+    });
   });
 });
