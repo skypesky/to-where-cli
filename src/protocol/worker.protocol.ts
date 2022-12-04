@@ -3,11 +3,11 @@ import { Point } from "../meta";
 export interface AddOptions extends Point {
   /**
    *
-   * @default false
+   *
    * @type {boolean}
    * @memberof AddOptions
    */
-  force: boolean;
+  force?: boolean;
 }
 
 export interface WorkerProtocol {

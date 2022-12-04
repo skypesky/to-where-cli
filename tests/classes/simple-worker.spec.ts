@@ -1,30 +1,61 @@
-import { basename } from "path";
-import { createProgram } from "../../src";
-import { simpleWorker } from "../../src/classes/simple-worker";
+import { SimpleConfig } from "./../../src/classes/simple-config";
+import { ConfigProtocol } from "./../../src/protocol/config.protocol";
+import { basename, join } from "path";
+import { SimpleWorker } from "../../src/classes/simple-worker";
+import { Point } from "../../src/meta";
+import open from "open";
+import chalk from "chalk";
+import { WorkerProtocol } from "../../src/protocol/worker.protocol";
 
-jest.mock("../../src/classes/simple-worker");
-const simpleWorkerMock = jest.mocked(simpleWorker);
+jest.mock("open");
+const openMock = jest.mocked(open, { shallow: true });
 
 describe(basename(__filename), () => {
-  it("should be output help info when no args", async () => {
-    const program = createProgram();
+  let simpleWorker: WorkerProtocol;
+  let config: ConfigProtocol;
+  const point: Point = {
+    alias: "home",
+    address: "/",
+  };
 
-    const helpSpy = jest.spyOn(program, "help").mockReturnThis();
+  const errorSpy = jest.spyOn(console, "error").mockReturnThis();
 
-    await program.parseAsync(["ts-node", "index.ts"]);
-
-    expect(helpSpy).toHaveBeenCalled();
+  beforeEach(() => {
+    config = new SimpleConfig({
+      configPath: join(__dirname, "test.worker.config.yml"),
+    });
+    simpleWorker = new SimpleWorker(config);
   });
 
-  it("should be invoke worker when alias has value", async () => {
-    simpleWorkerMock.open.mockResolvedValue();
-    const existSpy = jest.spyOn(process, "exit").mockReturnThis();
+  afterEach(async () => {
+    await config.destroy();
+  });
 
-    const program = createProgram();
+  describe("#constructor", () => {
+    it("should be created", () => {
+      expect(simpleWorker).toBeTruthy();
+    });
+  });
 
-    await program.parseAsync(["ts-node", "index.ts", "home"]);
+  describe("#open", () => {
+    it("should be throw an error when alias not found", async () => {
+      await simpleWorker.open(point.alias);
 
-    expect(simpleWorkerMock.open).toHaveBeenCalled();
-    expect(existSpy).toHaveBeenCalled();
+      expect(errorSpy.mock.calls[0][0]).toContain(
+        `Alias ${chalk.red(point.alias)} was not found`
+      );
+    });
+
+    it("should be throw an error when alias not found", async () => {
+      openMock.mockReturnThis();
+
+      await simpleWorker.add({
+        ...point,
+      });
+
+      await simpleWorker.open(point.alias);
+
+      expect(openMock).toBeCalledWith(point.address);
+    });
   });
 });

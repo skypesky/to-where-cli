@@ -1,4 +1,3 @@
-import yaml from "js-yaml";
 import { basename, join } from "path";
 import { SimpleConfig } from "../../src/classes/simple-config";
 import { existsSync } from "fs-extra";

@@ -1,3 +1,4 @@
+import { Config } from "./../meta/config.meta";
 import { AddOptions } from "./../protocol/worker.protocol";
 import { SimpleConfig } from "./simple-config";
 import { Point } from "../meta";
@@ -11,8 +12,8 @@ import open from "open";
 export class SimpleWorker implements WorkerProtocol {
   private readonly config: ConfigProtocol;
 
-  constructor() {
-    this.config = new SimpleConfig();
+  constructor(config: ConfigProtocol = new SimpleConfig()) {
+    this.config = config;
   }
 
   async open(alias: string): Promise<void> {
@@ -20,12 +21,10 @@ export class SimpleWorker implements WorkerProtocol {
 
     if (!_point) {
       logger.error(`Alias ${chalk.red(alias)} was not found`);
-      process.exit(1);
+      return;
     }
 
     await open(_point.address);
-
-    process.exit(0);
   }
 
   async add(options: AddOptions): Promise<Point> {
