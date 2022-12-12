@@ -23,7 +23,7 @@ jobs:
           cache: "pnpm"
 
       - name: Install deps
-        run: pnpm
+        run: pnpm install
 
       - name: Lint package
         run: pnpm run lint
