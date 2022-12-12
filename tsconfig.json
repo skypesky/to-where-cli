@@ -1,12 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES5",
-    "module": "ESNext",
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "rootDirs": ["src", "package.json"],
-    "outDir": "dist"
-  },
-  "include": ["src", "package.json"]
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "esModuleInterop": true
+  }
 }

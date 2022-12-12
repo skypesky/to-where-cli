@@ -2,9 +2,8 @@
   "name": "to-where-cli",
   "version": "0.0.2",
   "bin": {
-    "tw": "./dist/src/cli/index.js"
+    "tw": "./dist/index.js"
   },
-  "type": "module",
   "keywords": [
     "open",
     "alias",
@@ -17,14 +16,14 @@
   ],
   "scripts": {
     "predebug": "npm run build",
-    "debug": "node ./dist/src/cli/index.js",
+    "debug": "node ./dist/index.js",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "npm run lint -- --fix",
     "test": "jest --forceExit --detectOpenHandles",
     "coverage": "npm run test -- --coverage",
     "clean": "rimraf dist",
     "prebuild": "npm run clean",
-    "build": "tsc",
+    "build": "node esbuild.config.cjs",
     "build:watch": "npm run build -- -w",
     "deploy": "npm run build && npm uninstall -g to-where-cli && npm install -g . -f",
     "deploy:remote": "npm uninstall -g to-where-cli && npm install -g to-where-cli",

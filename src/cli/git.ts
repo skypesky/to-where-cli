@@ -1,31 +1,28 @@
-import { simpleWorker } from "../classes/simple-worker";
 import { Command } from "commander";
 import { ActionOptions } from "../meta/actions-options";
 import gitRemoteOriginUrl from "git-remote-origin-url";
-import { pull } from "lodash";
-
+import open from "open";
 const gitCommand = new Command();
 
 gitCommand
   .name("git")
+  .description("Open the repo, issue, pr address of github")
   .command("open")
   .description("Open github repo, issue, pr address")
-  .argument("[alias]", "Give your address an alias")
-  .argument("[address]", "your address")
-  .option("-i, --issues", "Open issues list", false)
+  .option("-i, --issue", "Open issues list", false)
   .option("-p, --pull-request", "Open pull request list", false)
-  .action(async (point: string, address: string, options: ActionOptions) => {
+  .action(async (options: ActionOptions) => {
     const issue = <boolean>options.issue;
     const pullRequest = <boolean>options.pullRequest;
     let githubAddress: string = await gitRemoteOriginUrl();
 
     if (issue) {
-      githubAddress = `${address}/issues`;
+      githubAddress = `${githubAddress}/issues`;
     } else if (pullRequest) {
-      githubAddress = `${address}/pulls`;
+      githubAddress = `${githubAddress}/pulls`;
     }
 
-    open(githubAddress);
+    await open(githubAddress);
   });
 
 export { gitCommand };
