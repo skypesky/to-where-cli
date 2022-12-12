@@ -1,5 +1,5 @@
 import { Point } from "../meta";
-import { Config } from "./../meta/config.meta";
+import { Config } from "./../meta";
 
 export interface ConfigProtocol {
   set(config: Config): Promise<void>;
