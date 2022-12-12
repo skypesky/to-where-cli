@@ -5,6 +5,7 @@ import { addCommand } from "../cli/add";
 import { cleanCommand } from "../cli/clean";
 import { listCommand } from "../cli/list";
 import { removeCommand } from "../cli/rm";
+import { gitCommand } from "../cli/git";
 
 export function createProgram() {
   // @see: https://www.npmjs.com/package/commander
@@ -27,6 +28,7 @@ export function createProgram() {
   program.addCommand(removeCommand);
   program.addCommand(listCommand);
   program.addCommand(cleanCommand);
+  program.addCommand(gitCommand);
 
   return program;
 }

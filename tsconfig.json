@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
     "target": "ES5",
-    "module": "commonjs",
-    "resolveJsonModule": true,
+    "module": "ESNext",
     "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
     "rootDirs": ["src", "package.json"],
     "outDir": "dist"
   },
