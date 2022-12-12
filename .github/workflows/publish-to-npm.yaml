@@ -9,20 +9,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout release branch code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 1
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install deps
         run: pnpm
 
       - name: Build
         run: pnpm build
-
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "16.x"
-          registry-url: "https://registry.npmjs.org"
 
       - name: Publish to NPM
         run: npm publish
