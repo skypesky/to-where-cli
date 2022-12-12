@@ -47,3 +47,13 @@ tw rm home
 ```shell
 tw -h
 ```
+
+## Extra
+
+- Open the repo, issue, pr address of github
+
+```shell
+tw git open // open github repo
+tw git open -i // open github repo issue list
+tw git open -p // open github repo pull request list
+```
