@@ -17,14 +17,11 @@ jobs:
         with:
           node-version: 16
 
-      - name: Set Yarn cache
-        uses: c-hive/gha-yarn-cache@v2
-
       - name: Install deps
-        run: yarn
+        run: pnpm
 
       - name: Lint package
-        run: npm run lint
+        run: pnpm run lint
 
       - name: Run unit test
-        run: npm run test
+        run: pnpm run test

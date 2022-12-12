@@ -14,10 +14,10 @@ jobs:
           fetch-depth: 1
 
       - name: Install deps
-        run: yarn
+        run: pnpm
 
       - name: Build
-        run: yarn build
+        run: pnpm build
 
       - uses: actions/setup-node@v3
         with:
