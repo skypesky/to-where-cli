@@ -19,6 +19,7 @@
     "dist"
   ],
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "predebug": "npm run build",
     "debug": "node ./dist/index.js",
     "lint": "eslint src/**/*.ts",
