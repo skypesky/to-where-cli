@@ -1,11 +1,15 @@
 import { Command } from "commander";
-import * as packageJson from "../../package.json";
 import { simpleWorker } from ".";
 import { addCommand } from "../cli/add";
 import { cleanCommand } from "../cli/clean";
 import { listCommand } from "../cli/list";
 import { removeCommand } from "../cli/rm";
 import { gitCommand } from "../cli/git";
+import { readJsonSync } from "fs-extra";
+import { cwd } from "process";
+import { join } from 'path';
+
+const packageJson = readJsonSync(join(cwd(), 'package.json'));
 
 export function createProgram() {
   // @see: https://www.npmjs.com/package/commander

@@ -8,6 +8,7 @@ import { pick } from "lodash";
 import chalk from "chalk";
 import open from "open";
 
+
 export class SimpleWorker implements WorkerProtocol {
   private readonly config: ConfigProtocol;
 
@@ -27,31 +28,41 @@ export class SimpleWorker implements WorkerProtocol {
   }
 
   async add(options: AddOptions): Promise<Point> {
-    const exits = await this.config.exists(options.alias);
+    const existsPoint: Point = await this.config.find(options.alias);
 
-    if (exits && !options.force) {
+    if (existsPoint && !options.force) {
       logger.error(
         `Alias ${chalk.red(
           options.alias
         )} already exists, you can use '-f' or '--force' to overwrite it`
       );
+
+      this.prettyPrint([existsPoint])
+
       return;
     }
 
     const point = pick(options, ["alias", "address"]);
     await this.config.add(point);
 
-    logger.info(`added ${point.alias} => ${point.address}`);
+    logger.info('Added successfully')
+    this.prettyPrint([point]);
     return point;
   }
 
   async delete(alias: string): Promise<void> {
-    if (!(await this.config.exists(alias))) {
+
+    const point =await this.config.find(alias);
+    
+    if (!point) {
       logger.error(`Alias ${chalk.red(alias)} was not found`);
       return;
     }
+
     await this.config.delete(alias);
+
     logger.info(`Alias ${chalk.blue(alias)} has been removed`);
+    this.prettyPrint([point])
   }
 
   async list(alias?: string): Promise<void> {
@@ -63,17 +74,13 @@ export class SimpleWorker implements WorkerProtocol {
         return;
       }
 
-      logger.info(
-        `${chalk.blue(_point.alias)} => ${chalk.cyan(_point.address)}`
-      );
+      this.prettyPrint([_point]);
       return;
     }
 
     const points = await this.config.findAll();
 
-    for (const point of points) {
-      logger.info(`${chalk.blue(point.alias)} => ${chalk.cyan(point.address)}`);
-    }
+    this.prettyPrint(points);
   }
 
   async clean(force = false): Promise<void> {
@@ -85,6 +92,12 @@ export class SimpleWorker implements WorkerProtocol {
     }
 
     await this.config.deleteAll();
+  }
+
+   prettyPrint(points: Point[]): void {
+    for (const point of points) {
+      logger.info(`${chalk.blue(point.alias)} => ${chalk.cyan(point.address)}`);
+    }
   }
 }
 
