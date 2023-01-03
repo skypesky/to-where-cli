@@ -9,8 +9,7 @@ specifiers:
   '@types/lodash': ^4.14.187
   '@types/node': ^18.11.7
   '@types/open': ^6.2.1
-  '@types/shelljs': ^0.8.11
-  '@types/shelljs.exec': ^1.1.0
+  '@types/url-join': ^4.0.1
   '@typescript-eslint/eslint-plugin': ^5.42.1
   '@typescript-eslint/parser': ^5.42.1
   chalk: ~4
@@ -19,6 +18,7 @@ specifiers:
   eslint: '>=5.16.0'
   fs-extra: ^10.1.0
   git-remote-origin-url: 3.1.0
+  git-repo-info: ^2.1.1
   jest: ^29.3.1
   jest-environment-jsdom: ^29.3.1
   js-yaml: ^4.1.0
@@ -28,15 +28,18 @@ specifiers:
   ts-jest: ^29.0.3
   ts-node: ^10.9.1
   typescript: ^4.8.4
+  url-join: 4.0.1
 
 dependencies:
   chalk: 4.1.2
   commander: 9.4.1
   fs-extra: 10.1.0
   git-remote-origin-url: 3.1.0
+  git-repo-info: 2.1.1
   js-yaml: 4.1.0
   lodash: 4.17.21
   open: 8.4.0
+  url-join: 4.0.1
 
 devDependencies:
   '@types/chalk': 2.2.0
@@ -47,8 +50,7 @@ devDependencies:
   '@types/lodash': 4.14.191
   '@types/node': 18.11.13
   '@types/open': 6.2.1
-  '@types/shelljs': 0.8.11
-  '@types/shelljs.exec': 1.1.0
+  '@types/url-join': 4.0.1
   '@typescript-eslint/eslint-plugin': 5.46.0_5mle7isnkfgjmrghnnczirv6iy
   '@typescript-eslint/parser': 5.46.0_ha6vam6werchizxrnqvarmz2zu
   esbuild: 0.16.4
@@ -1024,13 +1026,6 @@ packages:
       '@types/node': 18.11.13
     dev: true
 
-  /@types/glob/8.0.0:
-    resolution: {integrity: sha512-l6NQsDDyQUVeoTynNpC9uRvCUint/gSUXQA2euwmTuWGvPY5LSDUu6tkCtJB2SvGQlJQzLaKqcGZP4//7EDveA==}
-    dependencies:
-      '@types/minimatch': 5.1.2
-      '@types/node': 18.11.13
-    dev: true
-
   /@types/graceful-fs/4.1.5:
     resolution: {integrity: sha512-anKkLmZZ+xm4p8JWBf4hElkM4XR+EZeA2M9BAkkTldmcyDY4mbdIJnRghDJH3Ov5ooY7/UAoENtmdMSkaAd7Cw==}
     dependencies:
@@ -1080,10 +1075,6 @@ packages:
     resolution: {integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==}
     dev: true
 
-  /@types/minimatch/5.1.2:
-    resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}
-    dev: true
-
   /@types/node/18.11.13:
     resolution: {integrity: sha512-IASpMGVcWpUsx5xBOrxMj7Bl8lqfuTY7FKAnPmu5cHkfQVWF8GulWS1jbRqA934qZL35xh5xN/+Xe/i26Bod4w==}
     dev: true
@@ -1103,25 +1094,16 @@ packages:
     resolution: {integrity: sha512-21cFJr9z3g5dW8B0CVI9g2O9beqaThGQ6ZFBqHfwhzLDKUxaqTIy3vnfah/UPkfOiF2pLq+tGz+W8RyCskuslw==}
     dev: true
 
-  /@types/shelljs.exec/1.1.0:
-    resolution: {integrity: sha512-cqv0X9FesuXM9ROHBe2+wDyi/An+jJ7HbUFAKzrJEjOUeszrgg6tEb7bpRe22ByXEGMlKqjVXgYOt5Xml1Xr8A==}
-    dependencies:
-      '@types/node': 18.11.13
-    dev: true
-
-  /@types/shelljs/0.8.11:
-    resolution: {integrity: sha512-x9yaMvEh5BEaZKeVQC4vp3l+QoFj3BXcd4aYfuKSzIIyihjdVARAadYy3SMNIz0WCCdS2vB9JL/U6GQk5PaxQw==}
-    dependencies:
-      '@types/glob': 8.0.0
-      '@types/node': 18.11.13
-    dev: true
-
   /@types/stack-utils/2.0.1:
     resolution: {integrity: sha512-Hl219/BT5fLAaz6NDkSuhzasy49dwQS/DSdu4MdggFB8zcXv7vflBI3xp7FEmkmdDkBUI2bPUNeMttp2knYdxw==}
     dev: true
 
   /@types/tough-cookie/4.0.2:
     resolution: {integrity: sha512-Q5vtl1W5ue16D+nIaW8JWebSSraJVlK+EthKn7e7UcD4KWsaSJ8BqGPXNaPghgtcn/fhvrN17Tv8ksUsQpiplw==}
+    dev: true
+
+  /@types/url-join/4.0.1:
+    resolution: {integrity: sha512-wDXw9LEEUHyV+7UWy7U315nrJGJ7p1BzaCxDpEoLr789Dk1WDVMMlf3iBfbG2F8NdWnYyFbtTxUn2ZNbm1Q4LQ==}
     dev: true
 
   /@types/yargs-parser/21.0.0:
@@ -2091,6 +2073,11 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       gitconfiglocal: 2.1.0
+    dev: false
+
+  /git-repo-info/2.1.1:
+    resolution: {integrity: sha512-8aCohiDo4jwjOwma4FmYFd3i97urZulL8XL24nIPxuE+GZnfsAyy/g2Shqx6OjUiFKUXZM+Yy+KHnOmmA3FVcg==}
+    engines: {node: '>= 4.0'}
     dev: false
 
   /gitconfiglocal/2.1.0:
@@ -3636,6 +3623,10 @@ packages:
     dependencies:
       punycode: 2.1.1
     dev: true
+
+  /url-join/4.0.1:
+    resolution: {integrity: sha512-jk1+QP6ZJqyOiuEI9AEWQfju/nB2Pw466kbA0LEZljHwKeMgd9WrAEgEGxjPDD2+TNbbb37rTyhEfrCXfuKXnA==}
+    dev: false
 
   /url-parse/1.5.10:
     resolution: {integrity: sha512-WypcfiRhfeUP9vvF0j6rw0J3hrWrw6iZv3+22h6iRMJ/8z1Tj6XfLP4DsUix5MhMPnXpiHDoKyoZ/bdCkwBCiQ==}

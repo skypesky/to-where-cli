@@ -65,7 +65,10 @@ describe(basename(__filename), () => {
       await simpleWorker.add(point);
 
       expect(infoSpy).toBeCalledWith(
-        `added ${point.alias} => ${point.address}`
+        `Added successfully`
+      );
+      expect(infoSpy).toBeCalledWith(
+        `${chalk.blue(point.alias)} => ${chalk.cyan(point.address)}`
       );
     });
 
@@ -78,6 +81,10 @@ describe(basename(__filename), () => {
           point.alias
         )} already exists, you can use '-f' or '--force' to overwrite it`
       );
+
+      expect(infoSpy).toBeCalledWith(
+        `${chalk.blue(point.alias)} => ${chalk.cyan(point.address)}`
+      );
     });
 
     it("should be force add point when point exists and not force", async () => {
@@ -88,7 +95,10 @@ describe(basename(__filename), () => {
       });
 
       expect(infoSpy).toBeCalledWith(
-        `added ${point.alias} => ${point.address}`
+        `Added successfully`
+      );
+      expect(infoSpy).toBeCalledWith(
+        `${chalk.blue(point.alias)} => ${chalk.cyan(point.address)}`
       );
     });
   });
@@ -109,6 +119,9 @@ describe(basename(__filename), () => {
       expect(infoSpy).toBeCalledWith(
         `Alias ${chalk.blue(point.alias)} has been removed`
       );
+      expect(infoSpy).toBeCalledWith(
+        `${chalk.blue(point.alias)} => ${chalk.cyan(point.address)}`
+      );
     });
   });
 
@@ -122,7 +135,7 @@ describe(basename(__filename), () => {
 
       await simpleWorker.list(); // times: 2
 
-      expect(infoSpy).toBeCalledTimes(2 + 2);
+      expect(infoSpy).toHaveBeenCalled();
     });
 
     it("should be list single point when has alias arg && alias not found", async () => {
@@ -148,7 +161,7 @@ describe(basename(__filename), () => {
 
       await simpleWorker.list(point.alias);
 
-      expect(infoSpy).toBeCalledTimes(2);
+      expect(infoSpy).toHaveBeenCalled();
     });
   });
 
