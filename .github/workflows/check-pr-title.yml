@@ -1,4 +1,5 @@
 name: check-pr-title
+
 on:
   pull_request:
     types:
@@ -8,16 +9,12 @@ on:
       - synchronize
     branches:
       - master
+      - dev
+
 jobs:
-  lint:
+  lint-title:
     runs-on: ubuntu-latest
     steps:
-      - run: 'echo "No build required" '
-      - uses: aslafy-z/conventional-pr-title-action@v2.2.5
-        with:
-          success-state: Title follows the specification.
-          failure-state: Title does not follow the specification.
-          context-name: conventional-pr-title
-          preset: conventional-changelog-angular@latest
+      - uses: ArcBlock/action-lint-pull-request-title@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
