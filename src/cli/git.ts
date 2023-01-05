@@ -6,13 +6,14 @@ const gitCommand = new Command();
 import urlJoin from 'url-join';
 import getRepoInfo from 'git-repo-info'
 
+
 gitCommand
   .name("git")
   .command("open")
   .description("Open github repo page, issues page, pr page, ...etc")
   .option("-a, --actions", "Open actions page", false)
   .option("--author", "Open author profile page", false)
-  .option("-c, --committer", "Open committer profile", false)
+  .option("-c, --committer", "Open committer profile page", false)
   .option("-i, --issue", "Open issues list page", false)
   .option("-m, --main", "Open main branch page", false)
   .option("-p, --pull-request", "Open pull request list page", false)
