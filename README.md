@@ -53,7 +53,14 @@ tw -h
 - Open the repo, issue, pr address of github
 
 ```shell
-tw git open // open github repo
-tw git open -i // open github repo issue list
-tw git open -p // open github repo pull request list
+tw git open -a // Open actions page 
+tw git open --author // Open author profile page 
+tw git open -c // Open committer profile
+tw git open -i // Open issues list page 
+tw git open -m // Open main branch page
+tw git open -p // Open pull request list page
+tw git open -r // Open release page 
+tw git open -s // Open settings page 
+tw git open --sha // Open current sha page
+tw git open -h // display help for command
 ```
