@@ -8,7 +8,8 @@ import { logger } from "../utils/logger";
 
 async function getGitRemoteOriginUrl() {
   try {
-    return await gitRemoteOriginUrl();
+    const url = await gitRemoteOriginUrl();
+    return url.replace(/.git$/, "");
   } catch (err) {
     return null;
   }

@@ -36,7 +36,9 @@ describe(basename(__filename), () => {
 
   beforeEach(() => {
     openMock.mockReturnThis();
-    gitRemoteOriginUrlMock.mockResolvedValue(githubAddress);
+    gitRemoteOriginUrlMock.mockResolvedValue(
+      "https://github.com/skypesky/to-where-cli.git"
+    );
     getRepoInfoMock.mockReturnValue(gitRepoInfo);
   });
 
