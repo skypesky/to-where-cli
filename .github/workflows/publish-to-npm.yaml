@@ -2,7 +2,7 @@ name: publish-to-npm
 
 on:
   push:
-    branches: [master]
+    branches: [release]
 
 jobs:
   publish-to-npm:
