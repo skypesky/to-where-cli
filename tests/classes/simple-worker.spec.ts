@@ -64,11 +64,11 @@ describe(basename(__filename), () => {
     it("should be add point when point does not exists", async () => {
       await simpleWorker.add(point);
 
+      expect(infoSpy).toBeCalledWith(`Added successfully`);
       expect(infoSpy).toBeCalledWith(
-        `Added successfully`
-      );
-      expect(infoSpy).toBeCalledWith(
-        `${chalk.blue(point.alias)} => ${chalk.cyan(point.address)}`
+        `${chalk.blue(point.alias)} => ${chalk.cyan(
+          point.address
+        )} => ${chalk.green(point?.visits ?? 0)}`
       );
     });
 
@@ -83,7 +83,9 @@ describe(basename(__filename), () => {
       );
 
       expect(infoSpy).toBeCalledWith(
-        `${chalk.blue(point.alias)} => ${chalk.cyan(point.address)}`
+        `${chalk.blue(point.alias)} => ${chalk.cyan(
+          point.address
+        )} => ${chalk.green(point?.visits ?? 0)}`
       );
     });
 
@@ -94,11 +96,11 @@ describe(basename(__filename), () => {
         force: true,
       });
 
+      expect(infoSpy).toBeCalledWith(`Added successfully`);
       expect(infoSpy).toBeCalledWith(
-        `Added successfully`
-      );
-      expect(infoSpy).toBeCalledWith(
-        `${chalk.blue(point.alias)} => ${chalk.cyan(point.address)}`
+        `${chalk.blue(point.alias)} => ${chalk.cyan(
+          point.address
+        )} => ${chalk.green(point?.visits ?? 0)}`
       );
     });
   });
@@ -120,7 +122,9 @@ describe(basename(__filename), () => {
         `Alias ${chalk.blue(point.alias)} has been removed`
       );
       expect(infoSpy).toBeCalledWith(
-        `${chalk.blue(point.alias)} => ${chalk.cyan(point.address)}`
+        `${chalk.blue(point.alias)} => ${chalk.cyan(
+          point.address
+        )} => ${chalk.green(point?.visits ?? 0)}`
       );
     });
   });

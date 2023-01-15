@@ -66,6 +66,7 @@ export class SimpleConfig implements ConfigProtocol {
     for (const element of config.points) {
       if (element.alias === point.alias) {
         element.address = point.address;
+        element.visits = point.visits;
         break;
       }
     }

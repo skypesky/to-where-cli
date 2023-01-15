@@ -8,7 +8,6 @@ import { pick } from "lodash";
 import chalk from "chalk";
 import open from "open";
 
-
 export class SimpleWorker implements WorkerProtocol {
   private readonly config: ConfigProtocol;
 
@@ -17,14 +16,17 @@ export class SimpleWorker implements WorkerProtocol {
   }
 
   async open(alias: string): Promise<void> {
-    const _point = await this.config.find(alias);
+    const point: Point = await this.config.find(alias);
 
-    if (!_point) {
+    if (!point) {
       logger.error(`Alias ${chalk.red(alias)} was not found`);
       return;
     }
 
-    await open(_point.address);
+    point.visits = point?.visits ?? 1;
+
+    await this.config.update(point);
+    await open(point.address);
   }
 
   async add(options: AddOptions): Promise<Point> {
@@ -37,7 +39,7 @@ export class SimpleWorker implements WorkerProtocol {
         )} already exists, you can use '-f' or '--force' to overwrite it`
       );
 
-      this.prettyPrint([existsPoint])
+      this.prettyPrint([existsPoint]);
 
       return;
     }
@@ -45,15 +47,14 @@ export class SimpleWorker implements WorkerProtocol {
     const point = pick(options, ["alias", "address"]);
     await this.config.add(point);
 
-    logger.info('Added successfully')
+    logger.info("Added successfully");
     this.prettyPrint([point]);
     return point;
   }
 
   async delete(alias: string): Promise<void> {
+    const point = await this.config.find(alias);
 
-    const point =await this.config.find(alias);
-    
     if (!point) {
       logger.error(`Alias ${chalk.red(alias)} was not found`);
       return;
@@ -62,7 +63,7 @@ export class SimpleWorker implements WorkerProtocol {
     await this.config.delete(alias);
 
     logger.info(`Alias ${chalk.blue(alias)} has been removed`);
-    this.prettyPrint([point])
+    this.prettyPrint([point]);
   }
 
   async list(alias?: string): Promise<void> {
@@ -94,9 +95,19 @@ export class SimpleWorker implements WorkerProtocol {
     await this.config.deleteAll();
   }
 
-   prettyPrint(points: Point[]): void {
+  prettyPrint(points: Point[]): void {
+    points.sort((point1, point2) => {
+      point1.visits = point1?.visits ?? 0;
+      point2.visits = point2?.visits ?? 0;
+      return point2.visits - point1.visits;
+    });
+
     for (const point of points) {
-      logger.info(`${chalk.blue(point.alias)} => ${chalk.cyan(point.address)}`);
+      logger.info(
+        `${chalk.blue(point.alias)} => ${chalk.cyan(
+          point.address
+        )} => ${chalk.green(point?.visits ?? 0)}`
+      );
     }
   }
 }
