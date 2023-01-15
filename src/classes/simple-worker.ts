@@ -4,10 +4,11 @@ import { Point } from "../meta";
 import { ConfigProtocol } from "../protocol/config.protocol";
 import { WorkerProtocol } from "../protocol/worker.protocol";
 import { logger } from "../utils/logger";
-import { pick } from "lodash";
+import { cloneDeep, pick } from "lodash";
 import chalk from "chalk";
 import open from "open";
-
+import { join } from "path";
+import { cwd } from "process";
 
 export class SimpleWorker implements WorkerProtocol {
   private readonly config: ConfigProtocol;
@@ -17,14 +18,17 @@ export class SimpleWorker implements WorkerProtocol {
   }
 
   async open(alias: string): Promise<void> {
-    const _point = await this.config.find(alias);
+    const point: Point = await this.config.find(alias);
 
-    if (!_point) {
+    if (!point) {
       logger.error(`Alias ${chalk.red(alias)} was not found`);
       return;
     }
 
-    await open(_point.address);
+    point.visits = point?.visits ?? 1;
+
+    await this.config.update(point);
+    await open(point.address);
   }
 
   async add(options: AddOptions): Promise<Point> {
@@ -37,23 +41,30 @@ export class SimpleWorker implements WorkerProtocol {
         )} already exists, you can use '-f' or '--force' to overwrite it`
       );
 
-      this.prettyPrint([existsPoint])
+      this.prettyPrint([existsPoint]);
 
       return;
     }
 
-    const point = pick(options, ["alias", "address"]);
+    const point = await this.#formatPoint(pick(options, ["alias", "address"]));
     await this.config.add(point);
 
-    logger.info('Added successfully')
+    logger.info("Added successfully");
     this.prettyPrint([point]);
     return point;
   }
 
-  async delete(alias: string): Promise<void> {
+  async #formatPoint(point: Point): Promise<Point> {
+    const p = cloneDeep(point);
+    p.visits = p?.visits ?? 0;
+    p.address = p.address.startsWith("./") ? join(cwd(), p.address) : p.address;
 
-    const point =await this.config.find(alias);
-    
+    return p;
+  }
+
+  async delete(alias: string): Promise<void> {
+    const point = await this.config.find(alias);
+
     if (!point) {
       logger.error(`Alias ${chalk.red(alias)} was not found`);
       return;
@@ -62,7 +73,7 @@ export class SimpleWorker implements WorkerProtocol {
     await this.config.delete(alias);
 
     logger.info(`Alias ${chalk.blue(alias)} has been removed`);
-    this.prettyPrint([point])
+    this.prettyPrint([point]);
   }
 
   async list(alias?: string): Promise<void> {
@@ -94,9 +105,19 @@ export class SimpleWorker implements WorkerProtocol {
     await this.config.deleteAll();
   }
 
-   prettyPrint(points: Point[]): void {
+  prettyPrint(points: Point[]): void {
+    points.sort((point1, point2) => {
+      point1.visits = point1?.visits ?? 0;
+      point2.visits = point2?.visits ?? 0;
+      return point2.visits - point1.visits;
+    });
+
     for (const point of points) {
-      logger.info(`${chalk.blue(point.alias)} => ${chalk.cyan(point.address)}`);
+      logger.info(
+        `${chalk.blue(point.alias)} => ${chalk.cyan(
+          point.address
+        )} => ${chalk.green(point?.visits ?? 0)}`
+      );
     }
   }
 }

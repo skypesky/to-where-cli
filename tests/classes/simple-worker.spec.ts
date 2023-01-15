@@ -6,6 +6,7 @@ import { Point } from "../../src/meta";
 import open from "open";
 import chalk from "chalk";
 import { WorkerProtocol } from "../../src/protocol/worker.protocol";
+import { cwd } from "process";
 
 jest.mock("open");
 const openMock = jest.mocked(open, { shallow: true });
@@ -61,14 +62,28 @@ describe(basename(__filename), () => {
   });
 
   describe("#add", () => {
-    it("should be add point when point does not exists", async () => {
+    it("should be add point when point does not exists && is local dir path", async () => {
       await simpleWorker.add(point);
 
+      expect(infoSpy).toBeCalledWith(`Added successfully`);
       expect(infoSpy).toBeCalledWith(
-        `Added successfully`
+        `${chalk.blue(point.alias)} => ${chalk.cyan(
+          point.address
+        )} => ${chalk.green(point?.visits ?? 0)}`
       );
+    });
+
+    it("should be add point when point does not exists && address is local file path", async () => {
+      await simpleWorker.add({
+        ...point,
+        address: "./index.html",
+      });
+
+      expect(infoSpy).toBeCalledWith(`Added successfully`);
       expect(infoSpy).toBeCalledWith(
-        `${chalk.blue(point.alias)} => ${chalk.cyan(point.address)}`
+        `${chalk.blue(point.alias)} => ${chalk.cyan(
+          join(cwd(), "./index.html")
+        )} => ${chalk.green(point?.visits ?? 0)}`
       );
     });
 
@@ -83,7 +98,9 @@ describe(basename(__filename), () => {
       );
 
       expect(infoSpy).toBeCalledWith(
-        `${chalk.blue(point.alias)} => ${chalk.cyan(point.address)}`
+        `${chalk.blue(point.alias)} => ${chalk.cyan(
+          point.address
+        )} => ${chalk.green(point?.visits ?? 0)}`
       );
     });
 
@@ -94,11 +111,11 @@ describe(basename(__filename), () => {
         force: true,
       });
 
+      expect(infoSpy).toBeCalledWith(`Added successfully`);
       expect(infoSpy).toBeCalledWith(
-        `Added successfully`
-      );
-      expect(infoSpy).toBeCalledWith(
-        `${chalk.blue(point.alias)} => ${chalk.cyan(point.address)}`
+        `${chalk.blue(point.alias)} => ${chalk.cyan(
+          point.address
+        )} => ${chalk.green(point?.visits ?? 0)}`
       );
     });
   });
@@ -120,7 +137,9 @@ describe(basename(__filename), () => {
         `Alias ${chalk.blue(point.alias)} has been removed`
       );
       expect(infoSpy).toBeCalledWith(
-        `${chalk.blue(point.alias)} => ${chalk.cyan(point.address)}`
+        `${chalk.blue(point.alias)} => ${chalk.cyan(
+          point.address
+        )} => ${chalk.green(point?.visits ?? 0)}`
       );
     });
   });
