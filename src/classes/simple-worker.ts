@@ -4,9 +4,11 @@ import { Point } from "../meta";
 import { ConfigProtocol } from "../protocol/config.protocol";
 import { WorkerProtocol } from "../protocol/worker.protocol";
 import { logger } from "../utils/logger";
-import { pick } from "lodash";
+import { cloneDeep, pick } from "lodash";
 import chalk from "chalk";
 import open from "open";
+import { join } from "path";
+import { cwd } from "process";
 
 export class SimpleWorker implements WorkerProtocol {
   private readonly config: ConfigProtocol;
@@ -44,12 +46,20 @@ export class SimpleWorker implements WorkerProtocol {
       return;
     }
 
-    const point = pick(options, ["alias", "address"]);
+    const point = await this.#formatPoint(pick(options, ["alias", "address"]));
     await this.config.add(point);
 
     logger.info("Added successfully");
     this.prettyPrint([point]);
     return point;
+  }
+
+  async #formatPoint(point: Point): Promise<Point> {
+    const p = cloneDeep(point);
+    p.visits = p?.visits ?? 0;
+    p.address = p.address.startsWith("./") ? join(cwd(), p.address) : p.address;
+
+    return p;
   }
 
   async delete(alias: string): Promise<void> {
