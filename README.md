@@ -7,6 +7,7 @@ Give your URL and folder an alias, and you can open your URL on the browser or o
 <div align="center">
 
 [![npm version](https://img.shields.io/npm/v/to-where-cli.svg?style=flat-square)](https://www.npmjs.org/package/to-where-cli)
+[![Build Status](https://github.com/skypesky/to-where-cli/workflows/integration/badge.svg?branch=release)](https://github.com/skypesky/to-where-cli/actions)
 [![install size](https://img.shields.io/badge/dynamic/json?url=https://packagephobia.com/v2/api.json?p=to-where-cli&query=$.install.pretty&label=install%20size&style=flat-square)](https://packagephobia.now.sh/result?p=to-where-cli)
 [![npm downloads](https://img.shields.io/npm/dm/to-where-cli.svg?style=flat-square)](https://npm-stat.com/charts.html?package=to-where-cli)
 
