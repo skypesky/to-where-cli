@@ -4,6 +4,7 @@
     "esbuild",
     "Metas",
     "pnpm",
-    "predebug"
+    "predebug",
+    "skypesky"
   ]
 }
