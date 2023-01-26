@@ -1,9 +1,19 @@
 {
   "name": "to-where-cli",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "bin": {
     "tw": "./dist/index.js"
   },
+  "author": {
+    "name": "skypesky",
+    "email": "2565978507@qq.com",
+    "url": "https://github.com/skypesky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skypesky/to-where-cli"
+  },
+  "homepage": "https://github.com/skypesky/to-where-cli",
   "keywords": [
     "open",
     "alias",
