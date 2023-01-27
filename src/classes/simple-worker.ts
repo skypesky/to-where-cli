@@ -25,7 +25,7 @@ export class SimpleWorker implements WorkerProtocol {
       return;
     }
 
-    point.visits = point?.visits ?? 1;
+    point.visits = (point?.visits ?? 0) + 1;
 
     await this.config.update(point);
     await open(point.address);
