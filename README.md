@@ -63,15 +63,24 @@ tw -h
 - Open the repo, issue, pr address of github
 
 ```shell
-tw git open // Open current branch page
-tw git open -a // Open actions page 
-tw git open --author // Open author profile page 
-tw git open -c // Open committer profile
-tw git open -i // Open issues list page 
-tw git open -m // Open main branch page
-tw git open -p // Open pull request list page
-tw git open -r // Open release page 
-tw git open -s // Open settings page 
-tw git open --sha // Open current sha page
-tw git open -h // display help for command
+~ tw git open -h
+
+Usage: tw git open [options]
+
+Open github repo page, issues page, pr page, ...etc
+
+Options:
+  -a, --actions            Open actions page (default: false)
+  --author                 Open author profile page (default: false)
+  -c, --commit <commitId>  Open commit page
+  --committer              Open committer profile page (default: false)
+  -f, --file <filePath>    Open specific file page
+  --find                   Open the search file page (default: false)
+  -i, --issue              Open issues list page (default: false)
+  -m, --main               Open main branch page (default: false)
+  -p, --pull-request       Open pull request list page (default: false)
+  -r, --release            Open release page (default: false)
+  -s, --settings           Open settings page (default: false)
+  --sha                    Open current sha page (default: false)
+  -h, --help               display help for command
 ```
