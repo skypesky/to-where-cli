@@ -85,7 +85,7 @@ gitCommand
 
     if (!addresses.length) {
       const info = getRepoInfo();
-      const branchName = info.branch;
+      const branchName = info.branch ?? "";
       addresses.push(urlJoin(githubAddress, "tree", branchName));
     }
 
