@@ -1,3 +1,8 @@
+
+# 2023/01/27(0.0.12)
+
+- fix: README.md file error problem
+
 # 2023/01/27(0.0.11)
 
 - feat: support to open the file with the specified path through `tw git open --file xxx`
