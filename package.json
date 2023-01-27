@@ -1,6 +1,6 @@
 {
   "name": "to-where-cli",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "bin": {
     "tw": "./dist/index.js"
   },
@@ -67,6 +67,7 @@
     "@types/lodash": "^4.14.187",
     "@types/node": "^18.11.7",
     "@types/open": "^6.2.1",
+    "@types/shelljs.exec": "^1.1.0",
     "@types/url-join": "^4.0.1",
     "@typescript-eslint/eslint-plugin": "^5.42.1",
     "@typescript-eslint/parser": "^5.42.1",

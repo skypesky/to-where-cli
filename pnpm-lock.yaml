@@ -9,6 +9,7 @@ specifiers:
   '@types/lodash': ^4.14.187
   '@types/node': ^18.11.7
   '@types/open': ^6.2.1
+  '@types/shelljs.exec': ^1.1.0
   '@types/url-join': ^4.0.1
   '@typescript-eslint/eslint-plugin': ^5.42.1
   '@typescript-eslint/parser': ^5.42.1
@@ -54,6 +55,7 @@ devDependencies:
   '@types/lodash': 4.14.191
   '@types/node': 18.11.13
   '@types/open': 6.2.1
+  '@types/shelljs.exec': 1.1.0
   '@types/url-join': 4.0.1
   '@typescript-eslint/eslint-plugin': 5.46.0_5mle7isnkfgjmrghnnczirv6iy
   '@typescript-eslint/parser': 5.46.0_ha6vam6werchizxrnqvarmz2zu
@@ -1096,6 +1098,12 @@ packages:
 
   /@types/semver/7.3.13:
     resolution: {integrity: sha512-21cFJr9z3g5dW8B0CVI9g2O9beqaThGQ6ZFBqHfwhzLDKUxaqTIy3vnfah/UPkfOiF2pLq+tGz+W8RyCskuslw==}
+    dev: true
+
+  /@types/shelljs.exec/1.1.0:
+    resolution: {integrity: sha512-cqv0X9FesuXM9ROHBe2+wDyi/An+jJ7HbUFAKzrJEjOUeszrgg6tEb7bpRe22ByXEGMlKqjVXgYOt5Xml1Xr8A==}
+    dependencies:
+      '@types/node': 18.11.13
     dev: true
 
   /@types/stack-utils/2.0.1:
