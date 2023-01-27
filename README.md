@@ -1,6 +1,6 @@
 # to-where-cli
 
-> Currently only supports [macOS](https://en.wikipedia.org/wiki/MacOS)
+> Currently only supports [macOS](https://en.wikipedia.org/wiki/MacOS), [Windows](https://en.wikipedia.org/wiki/Windows]
 
 Give your URL and folder an alias, and you can open your URL on the browser or open the folder on the file manager through the alias in the future.
 
