@@ -1,6 +1,6 @@
 {
   "name": "to-where-cli",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "bin": {
     "tw": "./dist/index.js"
   },
@@ -48,12 +48,14 @@
   "dependencies": {
     "chalk": "~4",
     "commander": "^9.4.1",
+    "current-os": "^1.1.0",
     "fs-extra": "^10.1.0",
     "git-remote-origin-url": "3.1.0",
     "git-repo-info": "^2.1.1",
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
     "open": "^8.4.0",
+    "shelljs.exec": "^1.1.8",
     "url-join": "4.0.1"
   },
   "devDependencies": {
@@ -65,6 +67,7 @@
     "@types/lodash": "^4.14.187",
     "@types/node": "^18.11.7",
     "@types/open": "^6.2.1",
+    "@types/shelljs.exec": "^1.1.0",
     "@types/url-join": "^4.0.1",
     "@typescript-eslint/eslint-plugin": "^5.42.1",
     "@typescript-eslint/parser": "^5.42.1",

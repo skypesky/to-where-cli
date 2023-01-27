@@ -63,6 +63,7 @@ tw -h
 - Open the repo, issue, pr address of github
 
 ```shell
+tw git open // Open current branch page
 tw git open -a // Open actions page 
 tw git open --author // Open author profile page 
 tw git open -c // Open committer profile

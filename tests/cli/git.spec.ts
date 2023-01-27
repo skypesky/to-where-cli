@@ -1,11 +1,11 @@
 import { basename } from "path";
 import { createProgram } from "../../src";
-import open from "open";
+import { open } from "../../src/classes/open";
 import gitRemoteOriginUrl from "git-remote-origin-url";
 import getRepoInfo, { GitRepoInfo } from "git-repo-info";
 import urlJoin from "url-join";
 
-jest.mock("open");
+jest.mock("../../src/classes/open");
 const openMock = jest.mocked(open);
 
 jest.mock("git-remote-origin-url");

@@ -1,10 +1,10 @@
 import { Command } from "commander";
 import { ActionOptions } from "../meta/actions-options";
 import gitRemoteOriginUrl from "git-remote-origin-url";
-import open from "open";
 import urlJoin from "url-join";
 import getRepoInfo from "git-repo-info";
 import { logger } from "../utils/logger";
+import { open } from "../classes";
 
 async function getGitRemoteOriginUrl() {
   try {
@@ -85,7 +85,7 @@ gitCommand
 
     if (!addresses.length) {
       const info = getRepoInfo();
-      const branchName = info.branch;
+      const branchName = info.branch ?? "";
       addresses.push(urlJoin(githubAddress, "tree", branchName));
     }
 
