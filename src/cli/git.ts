@@ -23,7 +23,10 @@ gitCommand
   .description("Open github repo page, issues page, pr page, ...etc")
   .option("-a, --actions", "Open actions page", false)
   .option("--author", "Open author profile page", false)
-  .option("-c, --committer", "Open committer profile page", false)
+  .option("-c, --commit <commitId>", "Open commit page")
+  .option("--committer", "Open committer profile page", false)
+  .option("-f, --file <filePath>", "Open specific file page")
+  .option("--find", "Open the search file page", false)
   .option("-i, --issue", "Open issues list page", false)
   .option("-m, --main", "Open main branch page", false)
   .option("-p, --pull-request", "Open pull request list page", false)
@@ -33,13 +36,18 @@ gitCommand
   .action(async (options: ActionOptions) => {
     const actions = <boolean>options.actions;
     const author = <boolean>options.author;
+    const commit = <string>options.commit;
+    const committer = <boolean>options.committer;
+    const file = <string>options.file;
+    const find = <boolean>options.find;
     const issue = <boolean>options.issue;
     const pullRequest = <boolean>options.pullRequest;
     const release = <boolean>options.release;
-    const sha = <boolean>options.sha;
-    const committer = <boolean>options.committer;
     const main = <boolean>options.main;
     const settings = <boolean>options.settings;
+    const sha = <boolean>options.sha;
+
+    logger.info("debug", options);
 
     const addresses: string[] = [];
     const githubAddress: string = await getGitRemoteOriginUrl();
@@ -66,10 +74,28 @@ gitCommand
     if (release) {
       addresses.push(urlJoin(githubAddress, "releases"));
     }
+    if (commit) {
+      const info = getRepoInfo();
+      // FIXME: 需要默认跳转到主分支
+      const $commit = commit ?? info.branch ?? "";
+      addresses.push(urlJoin(githubAddress, "commit", $commit));
+    }
     if (committer) {
       const info = getRepoInfo();
       const [$committer] = info.author.split(" ");
       addresses.push(urlJoin(new URL(githubAddress).origin, $committer));
+    }
+    if (file) {
+      const info = getRepoInfo();
+      // FIXME: 需要默认跳转到主分支
+      const branchName = info.branch ?? "";
+      addresses.push(urlJoin(githubAddress, "tree", branchName, file));
+    }
+    if (find) {
+      const info = getRepoInfo();
+      // FIXME: 需要默认跳转到主分支
+      const branchName = info.branch ?? "";
+      addresses.push(urlJoin(githubAddress, "find", branchName));
     }
     if (settings) {
       addresses.push(urlJoin(githubAddress, "settings"));
@@ -85,6 +111,7 @@ gitCommand
 
     if (!addresses.length) {
       const info = getRepoInfo();
+      // FIXME: 需要默认跳转到主分支
       const branchName = info.branch ?? "";
       addresses.push(urlJoin(githubAddress, "tree", branchName));
     }
