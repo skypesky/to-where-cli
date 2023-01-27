@@ -3,12 +3,12 @@ import { ConfigProtocol } from "./../../src/protocol/config.protocol";
 import { basename, join } from "path";
 import { SimpleWorker } from "../../src/classes/simple-worker";
 import { Point } from "../../src/meta";
-import open from "open";
 import chalk from "chalk";
 import { WorkerProtocol } from "../../src/protocol/worker.protocol";
 import { cwd } from "process";
+import { open } from "../../src/classes/open";
 
-jest.mock("open");
+jest.mock("../../src/classes/open");
 const openMock = jest.mocked(open, { shallow: true });
 
 describe(basename(__filename), () => {
