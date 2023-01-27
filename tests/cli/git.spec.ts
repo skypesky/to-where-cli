@@ -188,16 +188,6 @@ describe(basename(__filename), () => {
     expect(openMock).toBeCalledWith(urlJoin(githubAddress, "settings"));
   });
 
-  it("should be work when call tw git open --sha", async () => {
-    const program = createProgram();
-
-    await program.parseAsync(["ts-node", "index.ts", "git", "open", "--sha"]);
-
-    expect(openMock).toBeCalledWith(
-      urlJoin(githubAddress, "commit", gitRepoInfo.sha)
-    );
-  });
-
   it("should be work when call tw git open --main", async () => {
     const program = createProgram();
 

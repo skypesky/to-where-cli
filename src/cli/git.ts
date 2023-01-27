@@ -5,6 +5,7 @@ import urlJoin from "url-join";
 import getRepoInfo from "git-repo-info";
 import { logger } from "../utils/logger";
 import { open } from "../classes";
+import { isBoolean } from "lodash";
 
 async function getGitRemoteOriginUrl() {
   try {
@@ -23,7 +24,7 @@ gitCommand
   .description("Open github repo page, issues page, pr page, ...etc")
   .option("-a, --actions", "Open actions page", false)
   .option("--author", "Open author profile page", false)
-  .option("-c, --commit <commitId>", "Open commit page")
+  .option("-c, --commit [commitId]", "Open commit page")
   .option("--committer", "Open committer profile page", false)
   .option("-f, --file <filePath>", "Open specific file page")
   .option("--find", "Open the search file page", false)
@@ -32,7 +33,6 @@ gitCommand
   .option("-p, --pull-request", "Open pull request list page", false)
   .option("-r, --release", "Open release page", false)
   .option("-s, --settings", "Open settings page", false)
-  .option("--sha", "Open current sha page", false)
   .action(async (options: ActionOptions) => {
     const actions = <boolean>options.actions;
     const author = <boolean>options.author;
@@ -45,9 +45,6 @@ gitCommand
     const release = <boolean>options.release;
     const main = <boolean>options.main;
     const settings = <boolean>options.settings;
-    const sha = <boolean>options.sha;
-
-    logger.info("debug", options);
 
     const addresses: string[] = [];
     const githubAddress: string = await getGitRemoteOriginUrl();
@@ -76,8 +73,7 @@ gitCommand
     }
     if (commit) {
       const info = getRepoInfo();
-      // FIXME: 需要默认跳转到主分支
-      const $commit = commit ?? info.branch ?? "";
+      const $commit: string = isBoolean(commit) ? info.sha : commit;
       addresses.push(urlJoin(githubAddress, "commit", $commit));
     }
     if (committer) {
@@ -99,10 +95,6 @@ gitCommand
     }
     if (settings) {
       addresses.push(urlJoin(githubAddress, "settings"));
-    }
-    if (sha) {
-      const info = getRepoInfo();
-      addresses.push(urlJoin(githubAddress, "commit", info.sha));
     }
     if (main) {
       // 什么都不用做
