@@ -14,6 +14,7 @@ specifiers:
   '@typescript-eslint/parser': ^5.42.1
   chalk: ~4
   commander: ^9.4.1
+  current-os: ^1.1.0
   esbuild: ^0.16.4
   eslint: '>=5.16.0'
   fs-extra: ^10.1.0
@@ -25,6 +26,7 @@ specifiers:
   lodash: ^4.17.21
   open: ^8.4.0
   rimraf: ^3.0.2
+  shelljs.exec: ^1.1.8
   ts-jest: ^29.0.3
   ts-node: ^10.9.1
   typescript: ^4.8.4
@@ -33,12 +35,14 @@ specifiers:
 dependencies:
   chalk: 4.1.2
   commander: 9.4.1
+  current-os: 1.1.0
   fs-extra: 10.1.0
   git-remote-origin-url: 3.1.0
   git-repo-info: 2.1.1
   js-yaml: 4.1.0
   lodash: 4.17.21
   open: 8.4.0
+  shelljs.exec: 1.1.8
   url-join: 4.0.1
 
 devDependencies:
@@ -1607,6 +1611,11 @@ packages:
     dependencies:
       cssom: 0.3.8
     dev: true
+
+  /current-os/1.1.0:
+    resolution: {integrity: sha512-aNI+smFPOuGxhlPW63HiU082uJjWOQPelNCQpWPWAhHTYMELihHMiqG3UFixasCVGBEJKmEupCrv7PK8Py+IRg==}
+    engines: {node: '>= 0.10.0'}
+    dev: false
 
   /data-urls/3.0.2:
     resolution: {integrity: sha512-Jy/tj3ldjZJo63sVAvg6LHt2mHvl4V6AgRAmNDtLdm7faqtsx+aJG42rsyCo9JCoRVKwPFzKlIPx3DIibwSIaQ==}
@@ -3332,6 +3341,11 @@ packages:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
     dev: true
+
+  /shelljs.exec/1.1.8:
+    resolution: {integrity: sha512-vFILCw+lzUtiwBAHV8/Ex8JsFjelFMdhONIsgKNLgTzeRckp2AOYRQtHJE/9LhNvdMmE27AGtzWx0+DHpwIwSw==}
+    engines: {node: '>= 4.0.0'}
+    dev: false
 
   /signal-exit/3.0.7:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}

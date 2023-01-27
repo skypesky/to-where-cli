@@ -6,9 +6,9 @@ import { WorkerProtocol } from "../protocol/worker.protocol";
 import { logger } from "../utils/logger";
 import { cloneDeep, pick } from "lodash";
 import chalk from "chalk";
-import open from "open";
 import { join } from "path";
 import { cwd } from "process";
+import { open } from "./open";
 
 export class SimpleWorker implements WorkerProtocol {
   private readonly config: ConfigProtocol;
