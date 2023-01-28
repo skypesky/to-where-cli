@@ -1,7 +1,7 @@
 ---
 name: ":speech_balloon: Discuss"
 description: Start a discussion 
-title: "TITLE FOR BUG REPORT"
+title: "[Discuss]: Discuss title"
 labels: [discuss]
 assignees: [skypesky]
 body:

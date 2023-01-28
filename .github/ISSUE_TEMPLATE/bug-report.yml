@@ -1,8 +1,8 @@
 ---
 name: "🐛 Bug Report"
 description: Report a bug
-title: "TITLE FOR BUG REPORT"
-labels: [bug, needs-triage]
+title: "[Bug]: Bug title"
+labels: [bug]
 assignees: []
 body:
   - type: textarea
