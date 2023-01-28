@@ -49,6 +49,7 @@
     "chalk": "~4",
     "commander": "^9.4.1",
     "current-os": "^1.1.0",
+    "dayjs": "^1.11.7",
     "fs-extra": "^10.1.0",
     "git-remote-origin-url": "3.1.0",
     "git-repo-info": "^2.1.1",

@@ -1,4 +1,8 @@
 
+# 2023/01/28(0.0.13)
+
+- feat: support release of beta version of to-where-cli 
+
 # 2023/01/27(0.0.12)
 
 - fix: README.md file error problem

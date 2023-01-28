@@ -1,0 +1,39 @@
+name: publish-beta-to-npm
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  publish-to-npm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout release branch code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install deps
+        run: pnpm install
+
+      - name: Build
+        run: pnpm build
+
+      - name: Publish to NPM
+        run: |
+          node scripts/update-beta-package-version.js 
+          cat package.json | grep version
+          npm publish --tag beta
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
