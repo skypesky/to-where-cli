@@ -2,7 +2,7 @@
 const { join } = require("path");
 const { existsSync, readdirSync } = require("fs-extra");
 const { readJsonSync } = require("fs-extra");
-const { outputJsonSync } = require("fs-extra");
+const { outputFileSync } = require("fs-extra");
 
 class WorkSpaces {
   /**
@@ -49,7 +49,7 @@ class WorkSpaces {
   async #setPackageVersion(packageJsonPath, version) {
     const packageJson = readJsonSync(packageJsonPath);
     packageJson.version = version;
-    outputJsonSync(packageJsonPath, packageJson);
+    outputFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
   }
 
   /**
