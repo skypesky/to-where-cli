@@ -17,6 +17,7 @@ body:
     id: reproduction
     attributes:
       label: Reproduction Steps
+      description: Reproducible warehouse address, fast code, screenshot or screen recording
     validations:
       required: true
   - type: textarea
