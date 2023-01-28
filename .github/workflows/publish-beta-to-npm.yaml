@@ -1,9 +1,8 @@
 name: publish-beta-to-npm
 
-on: [push]
-# on:
-#   push:
-#     branches: [release]
+on:
+  push:
+    branches: [master]
 
 jobs:
   publish-to-npm:
@@ -13,7 +12,6 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 1
-          ref: publish-beta-version
 
       - uses: pnpm/action-setup@v2
         with:
