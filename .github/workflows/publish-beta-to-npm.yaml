@@ -5,8 +5,9 @@ on:
     branches: [master]
 
 jobs:
-  publish-to-npm:
+  publish-beta-to-npm:
     runs-on: ubuntu-latest
+    if: "! contains(toJSON(github.event.commits.*.message), '[skip ci]')"
     steps:
       - name: Checkout release branch code
         uses: actions/checkout@v3
