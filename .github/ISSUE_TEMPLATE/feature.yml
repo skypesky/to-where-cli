@@ -1,0 +1,23 @@
+---
+name: ":speech_balloon: Discuss"
+description: Start a discussion 
+title: "TITLE FOR BUG REPORT"
+labels: [discuss]
+assignees: [skypesky]
+body:
+  - type: textarea
+    id: Why
+    attributes:
+      label: Why you want this Feature?
+      description: What is the usage scenario? 
+    validations:
+      required: true
+  - type: textarea
+    id: Use
+    attributes:
+      label: Describe the solution you'd like
+      description: How to use it?
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
