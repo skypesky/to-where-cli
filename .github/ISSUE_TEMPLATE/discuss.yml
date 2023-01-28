@@ -3,7 +3,7 @@ name: "💬 Discuss"
 description: Start a discussion 
 title: "[Discuss]: Discuss title"
 labels: [discuss]
-assignees: [skypesky]
+assignees: []
 body:
   - type: textarea
     id: description
