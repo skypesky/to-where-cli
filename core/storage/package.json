@@ -1,0 +1,20 @@
+{
+    "name": "to-where-cli-storage",
+    "version": "1.8.62-beta-2023-01-28-13-01-549",
+    "description": "",
+    "main": "index.js",
+    "author": {
+        "name": "skypesky",
+        "email": "2565978507@qq.com",
+        "url": "https://github.com/skypesky"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/skypesky/to-where-cli"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "license": "ISC"
+}

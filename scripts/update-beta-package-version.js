@@ -1,0 +1,99 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { join } = require("path");
+const { existsSync, readdirSync } = require("fs-extra");
+const { readJsonSync } = require("fs-extra");
+const { outputJsonSync } = require("fs-extra");
+
+class WorkSpaces {
+  /**
+   * @type {string}
+   */
+  rootDir;
+
+  /**
+   * @type {string[]}
+   * @example ['core', 'services', 'packages']
+   */
+  workSpaces;
+
+  includeWorkspaceRoot;
+
+  #packageJson = "package.json";
+
+  constructor({ rootDir, workSpaces, includeWorkspaceRoot }) {
+    this.rootDir = rootDir;
+    this.workSpaces = workSpaces;
+    this.includeWorkspaceRoot = includeWorkspaceRoot;
+  }
+
+  async setVersion(version) {
+    return this.#setVersion(version);
+  }
+
+  async #setVersion(version) {
+    const packageJsonPaths = await this.#getPackageJsonPaths();
+
+    await Promise.all(
+      packageJsonPaths.map((packageJsonPath) =>
+        this.#setPackageVersion(packageJsonPath, version)
+      )
+    );
+  }
+
+  /**
+   *
+   * @param {string} packageJsonPath
+   * @param {string} version
+   * @returns {Promise<void>}
+   */
+  async #setPackageVersion(packageJsonPath, version) {
+    const packageJson = readJsonSync(packageJsonPath);
+    packageJson.version = version;
+    outputJsonSync(packageJsonPath, packageJson);
+  }
+
+  /**
+   *
+   * @returns {Promise<string[]>}
+   */
+  async #getPackageJsonPaths() {
+    const packageJsonPaths = [];
+
+    if (
+      this.includeWorkspaceRoot &&
+      existsSync(join(this.rootDir, this.#packageJson))
+    ) {
+      packageJsonPaths.push(join(this.rootDir, this.#packageJson));
+    }
+
+    for (const workspace of this.workSpaces) {
+      if (!existsSync(join(this.rootDir, workspace))) {
+        console.warn(`workspace{${workspace}) not found`);
+        continue;
+      }
+
+      const files = readdirSync(workspace, { withFileTypes: true });
+
+      for (const file of files) {
+        if (
+          file.isDirectory() &&
+          existsSync(
+            join(this.rootDir, workspace, file.name, this.#packageJson)
+          )
+        ) {
+          packageJsonPaths.push(
+            join(this.rootDir, workspace, file.name, this.#packageJson)
+          );
+        }
+      }
+    }
+
+    console.log("debug", packageJsonPaths);
+
+    return packageJsonPaths;
+  }
+}
+
+module.exports = {
+  WorkSpaces,
+};
