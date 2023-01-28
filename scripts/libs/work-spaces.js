@@ -3,6 +3,7 @@ const { join } = require("path");
 const { existsSync, readdirSync } = require("fs-extra");
 const { readJsonSync } = require("fs-extra");
 const { outputFileSync } = require("fs-extra");
+const { isArray } = require("lodash");
 
 class WorkSpaces {
   /**
@@ -64,6 +65,10 @@ class WorkSpaces {
       existsSync(join(this.rootDir, this.#packageJson))
     ) {
       packageJsonPaths.push(join(this.rootDir, this.#packageJson));
+    }
+
+    if (!isArray(this.workSpaces)) {
+      return packageJsonPaths;
     }
 
     for (const workspace of this.workSpaces) {

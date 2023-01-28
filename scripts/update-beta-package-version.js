@@ -13,7 +13,6 @@ const time = dayjs().format("YYYY-MM-DD-HH-MM-SSS");
 const newVersion = `${currentVersion}-beta-${time}`;
 const workspace = new WorkSpaces({
   rootDir: cwd(),
-  workSpaces: ["core"],
   includeWorkspaceRoot: true,
 });
 workspace.setVersion(newVersion);
