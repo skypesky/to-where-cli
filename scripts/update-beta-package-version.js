@@ -68,8 +68,7 @@ class WorkSpaces {
 
     for (const workspace of this.workSpaces) {
       if (!existsSync(join(this.rootDir, workspace))) {
-        console.warn(`workspace{${workspace}) not found`);
-        continue;
+        throw new Error(`workspace(${workspace}) not found`);
       }
 
       const files = readdirSync(workspace, { withFileTypes: true });
