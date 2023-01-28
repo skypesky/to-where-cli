@@ -21,5 +21,6 @@ const { join } = require("path");
     await workspace.setVersion(newVersion);
   } catch (error) {
     console.error(error);
+    process.exit(1);
   }
 })();

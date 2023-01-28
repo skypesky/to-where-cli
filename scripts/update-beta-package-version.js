@@ -88,8 +88,6 @@ class WorkSpaces {
       }
     }
 
-    console.log("debug", packageJsonPaths);
-
     return packageJsonPaths;
   }
 }
