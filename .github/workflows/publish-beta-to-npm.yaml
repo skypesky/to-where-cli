@@ -34,6 +34,6 @@ jobs:
 
       - name: Publish to NPM
         run: |
-          node scripts/update-beta-package-version.js & cat package.json | grep version & npm publish --tag beta
+          node scripts/update-beta-package-version.js && cat package.json | grep version && npm publish --tag beta
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
