@@ -1,6 +1,6 @@
 {
   "name": "to-where-cli",
-  "version": "1.8.62",
+  "version": "0.0.12",
   "bin": {
     "tw": "./dist/index.js"
   },
