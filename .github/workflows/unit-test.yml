@@ -1,7 +1,11 @@
-name: integration
+name: unit-test
 
-on: [push]
-
+on:
+  pull_request:
+    branches:
+      - release
+      - master
+    
 jobs:
   integration:
     runs-on: ubuntu-latest

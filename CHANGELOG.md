@@ -2,6 +2,7 @@
 
 - feat: support release of beta version of to-where-cli 
 - fix: windows installation error: to-where-cli@0.0.12 preinstall: npx only-allow pnpm
+- feat: version check before release 
   
 # 2023/01/27(0.0.12)
 
