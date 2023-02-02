@@ -1,3 +1,7 @@
+# 2023/02/03(0.0.14)
+
+- feat: support using `tw git open --pull` to create pr
+
 # 2023/01/28(0.0.13)
 
 - feat: support release of beta version of to-where-cli 
