@@ -29,7 +29,6 @@
     "dist"
   ],
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "reinstall": "rimraf node_modules && pnpm install",
     "predebug": "npm run build",
     "debug": "node ./dist/index.js",
