@@ -6,6 +6,7 @@ import getRepoInfo from "git-repo-info";
 import { logger } from "../utils/logger";
 import { open } from "../classes";
 import { isBoolean } from "lodash";
+import hostedGitInfo from "hosted-git-info";
 
 async function getGitRemoteOriginUrl() {
   try {
@@ -53,12 +54,15 @@ gitCommand
     const settings = <boolean>options.settings;
 
     const addresses: string[] = [];
-    const githubAddress: string = await getGitRemoteOriginUrl();
+    const rawGithubAddress: string = await getGitRemoteOriginUrl();
+    const gitInfo = hostedGitInfo.fromUrl(rawGithubAddress);
 
-    if (!githubAddress) {
+    if (!rawGithubAddress) {
       logger.error(`The current directory is not a valid git repository`);
       return;
     }
+
+    const githubAddress = gitInfo.browse();
 
     if (actions) {
       addresses.push(urlJoin(githubAddress, "actions"));
