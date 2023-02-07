@@ -1,21 +1,11 @@
 import { Command } from "commander";
 import { ActionOptions } from "../meta/actions-options";
-import gitRemoteOriginUrl from "git-remote-origin-url";
 import urlJoin from "url-join";
 import getRepoInfo from "git-repo-info";
 import { logger } from "../utils/logger";
 import { open } from "../classes";
 import { isBoolean } from "lodash";
-import hostedGitInfo from "hosted-git-info";
-
-async function getGitRemoteOriginUrl() {
-  try {
-    const url = await gitRemoteOriginUrl();
-    return url.replace(/.git$/, "");
-  } catch (err) {
-    return null;
-  }
-}
+import { getGitRemoteUrl } from "../utils/git";
 
 const gitCommand = new Command();
 
@@ -54,15 +44,12 @@ gitCommand
     const settings = <boolean>options.settings;
 
     const addresses: string[] = [];
-    const rawGithubAddress: string = await getGitRemoteOriginUrl();
-    const gitInfo = hostedGitInfo.fromUrl(rawGithubAddress);
+    const githubAddress: string = await getGitRemoteUrl();
 
-    if (!rawGithubAddress) {
+    if (!githubAddress) {
       logger.error(`The current directory is not a valid git repository`);
       return;
     }
-
-    const githubAddress = gitInfo.browse();
 
     if (actions) {
       addresses.push(urlJoin(githubAddress, "actions"));
