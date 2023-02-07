@@ -4,6 +4,7 @@ specifiers:
   '@types/chalk': ^2.2.0
   '@types/commander': ^2.12.2
   '@types/fs-extra': ^9.0.13
+  '@types/hosted-git-info': ^3.0.2
   '@types/jest': ^29.2.2
   '@types/js-yaml': ^4.0.5
   '@types/lodash': ^4.14.187
@@ -22,6 +23,7 @@ specifiers:
   fs-extra: ^10.1.0
   git-remote-origin-url: 3.1.0
   git-repo-info: ^2.1.1
+  hosted-git-info: ^6.1.1
   jest: ^29.3.1
   jest-environment-jsdom: ^29.3.1
   js-yaml: ^4.1.0
@@ -35,6 +37,7 @@ specifiers:
   url-join: 4.0.1
 
 dependencies:
+  '@types/hosted-git-info': 3.0.2
   chalk: 4.1.2
   commander: 9.4.1
   current-os: 1.1.0
@@ -42,6 +45,7 @@ dependencies:
   fs-extra: 10.1.0
   git-remote-origin-url: 3.1.0
   git-repo-info: 2.1.1
+  hosted-git-info: 6.1.1
   js-yaml: 4.1.0
   lodash: 4.17.21
   open: 8.4.0
@@ -1039,6 +1043,10 @@ packages:
     dependencies:
       '@types/node': 18.11.13
     dev: true
+
+  /@types/hosted-git-info/3.0.2:
+    resolution: {integrity: sha512-RURNTeEFUwF+ifnp7kK3WLLlTmBSlRynLNS9jeAsI6RHtSrupV0l0nO6kmpaz75EUJVexy348bR452SvmH98vQ==}
+    dev: false
 
   /@types/istanbul-lib-coverage/2.0.4:
     resolution: {integrity: sha512-z/QT1XN4K4KYuslS23k62yDIDLwLFkzxOuMplDtObz0+y7VqJCaO2o+SPwHCvLFZh7xazvvoor2tA/hPz9ee7g==}
@@ -2181,6 +2189,13 @@ packages:
       function-bind: 1.1.1
     dev: true
 
+  /hosted-git-info/6.1.1:
+    resolution: {integrity: sha512-r0EI+HBMcXadMrugk0GCQ+6BQV39PiWAZVfq7oIckeGiN7sjRGyQxPdft3nQekFTCQbYxLBH+/axZMeH8UX6+w==}
+    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+    dependencies:
+      lru-cache: 7.14.1
+    dev: false
+
   /html-encoding-sniffer/3.0.0:
     resolution: {integrity: sha512-oWv4T4yJ52iKrufjnyZPkrN0CH3QnrUqdB6In1g5Fe1mia8GmF36gnfNySxoZtxD5+NmYw1EElVXiBk93UeskA==}
     engines: {node: '>=12'}
@@ -2969,6 +2984,11 @@ packages:
     dependencies:
       yallist: 4.0.0
     dev: true
+
+  /lru-cache/7.14.1:
+    resolution: {integrity: sha512-ysxwsnTKdAx96aTRdhDOCQfDgbHnt8SK0KY8SEjO0wHinhWOFTESbjVCMPbU1uGXg/ch4lifqx0wfjOawU2+WA==}
+    engines: {node: '>=12'}
+    dev: false
 
   /make-dir/3.1.0:
     resolution: {integrity: sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==}

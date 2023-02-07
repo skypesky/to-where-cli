@@ -1,3 +1,7 @@
+# 2023/02/06(0.0.15)
+
+- feat: `git` subcommand work with git ssh-url
+
 # 2023/02/03(0.0.14)
 
 - feat: support using `tw git open --pull` to create pr
