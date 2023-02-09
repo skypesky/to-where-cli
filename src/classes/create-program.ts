@@ -7,7 +7,7 @@ import { cleanCommand } from "../cli/clean";
 import { listCommand } from "../cli/list";
 import { removeCommand } from "../cli/rm";
 import { gitCommand } from "../cli/git";
-import { npmCommand } from "../cli/npm";
+import { npmCommand } from "../cli/npm/npm";
 import { googleCommand } from "../cli/google";
 import { baiduCommand } from "../cli/baidu";
 import { bingCommand } from "../cli/bing";

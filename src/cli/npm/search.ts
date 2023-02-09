@@ -1,12 +1,11 @@
 import { Command } from "commander";
-import { open } from "../classes";
-import { ActionOptions } from "../meta/actions-options";
+import { open } from "../../classes";
+import { ActionOptions } from "../../meta/actions-options";
 
-const npmCommand = new Command();
+const npmSearchCommand = new Command();
 
-npmCommand
-  .name("npm")
-  .command("search")
+npmSearchCommand
+  .name("search")
   .argument("<keyword>", "search npm packages")
   .description("TODO")
   .action(async (keyword: string, options: ActionOptions) => {
@@ -17,4 +16,4 @@ npmCommand
     await open(searchUrl);
   });
 
-export { npmCommand };
+export { npmSearchCommand };
