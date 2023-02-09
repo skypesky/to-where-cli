@@ -1,3 +1,7 @@
+# 2023/02/10(0.0.16)
+
+- feat: support on npm, baidu, google page search
+  
 # 2023/02/06(0.0.15)
 
 - feat: `git` subcommand work with git ssh-url
