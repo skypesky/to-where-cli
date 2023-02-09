@@ -1,12 +1,16 @@
 import { Command } from "commander";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const {version} = require("../../package.json");
+const { version } = require("../../package.json");
 import { simpleWorker } from ".";
 import { addCommand } from "../cli/add";
 import { cleanCommand } from "../cli/clean";
 import { listCommand } from "../cli/list";
 import { removeCommand } from "../cli/rm";
 import { gitCommand } from "../cli/git";
+import { npmCommand } from "../cli/npm";
+import { googleCommand } from "../cli/google";
+import { baiduCommand } from "../cli/baidu";
+import { bingCommand } from "../cli/bing";
 
 export function createProgram() {
   // @see: https://www.npmjs.com/package/commander
@@ -30,6 +34,10 @@ export function createProgram() {
   program.addCommand(listCommand);
   program.addCommand(cleanCommand);
   program.addCommand(gitCommand);
+  program.addCommand(npmCommand);
+  program.addCommand(googleCommand);
+  program.addCommand(baiduCommand);
+  program.addCommand(bingCommand);
 
   return program;
 }
