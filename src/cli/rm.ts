@@ -6,7 +6,7 @@ const removeCommand = new Command();
 removeCommand
   .name("rm")
   .description("Remove an alias from your address")
-  .argument("<point>", "TODO")
+  .argument("<point>", "Enter the point to be deleted")
   .action((alias: string) => {
     simpleWorker.delete(alias);
   });
