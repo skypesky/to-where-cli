@@ -9,6 +9,7 @@ import { getGitRemoteUrl } from "../utils/git";
 
 const gitCommand = new Command();
 
+// 逐步迁移出一个文件夹出来
 gitCommand
   .name("git")
   .command("open")

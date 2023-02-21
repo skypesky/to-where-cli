@@ -5,7 +5,8 @@ import { ActionOptions } from "../meta/actions-options";
 const listCommand = new Command();
 
 listCommand
-  .name("list")
+  .name("ls")
+  .alias("list")
   .description("List existing aliases and addresses")
   .action(async (str: string, options: ActionOptions) => {
     const [point] = options.args;
