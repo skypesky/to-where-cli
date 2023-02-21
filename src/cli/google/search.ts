@@ -5,8 +5,8 @@ const googleSearchCommand = new Command();
 
 googleSearchCommand
   .name("search")
-  .argument("<keyword>", "TODO")
-  .description("TODO")
+  .argument("[keyword]", "Search by keyword")
+  .description("Search by keyword")
   .action(async (keyword: string) => {
     const searchUrl = `https://www.google.com/search?q=${keyword}`;
 

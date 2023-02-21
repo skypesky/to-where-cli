@@ -5,9 +5,9 @@ const baiduSearchCommand = new Command();
 
 baiduSearchCommand
   .name("search")
-  .argument("<keyword>", "search npm packages")
-  .description("TODO")
-  .action(async (keyword: string) => {
+  .argument("[keyword]", "Search by keyword")
+  .description("Search by keyword")
+  .action(async (keyword = "") => {
     const searchUrl = `https://www.baidu.com/s?wd=${keyword}`;
 
     await open(searchUrl);

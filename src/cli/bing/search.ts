@@ -5,8 +5,8 @@ const bingSearchCommand = new Command();
 
 bingSearchCommand
   .name("search")
-  .argument("[keyword]", "search npm packages", "")
-  .description("TODO")
+  .argument("[keyword]", "Search by keyword")
+  .description("Search by keyword")
   .action(async (keyword: string) => {
     const searchUrl = `https://www.bing.com/search?q=${keyword}`;
 

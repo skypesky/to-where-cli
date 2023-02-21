@@ -11,7 +11,7 @@ import { npmCommand } from "../cli/npm";
 import { googleCommand } from "../cli/google";
 import { baiduCommand } from "../cli/baidu";
 import { bingCommand } from "../cli/bing";
-import { lsCommand } from "../cli/ls";
+import { githubCommand } from "../cli/github";
 
 export function createProgram() {
   // @see: https://www.npmjs.com/package/commander
@@ -32,7 +32,6 @@ export function createProgram() {
 
   program.addCommand(addCommand);
   program.addCommand(removeCommand);
-  program.addCommand(lsCommand);
   program.addCommand(listCommand);
   program.addCommand(cleanCommand);
   program.addCommand(gitCommand);
@@ -40,6 +39,7 @@ export function createProgram() {
   program.addCommand(googleCommand);
   program.addCommand(baiduCommand);
   program.addCommand(bingCommand);
+  program.addCommand(githubCommand);
 
   return program;
 }
