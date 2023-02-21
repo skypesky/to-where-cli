@@ -42,7 +42,8 @@
     "build:watch": "npm run build -- -w",
     "deploy": "npm run build && npm uninstall -g to-where-cli && npm install -g . -f",
     "deploy:remote": "npm uninstall -g to-where-cli && npm install -g to-where-cli",
-    "verify": "npm run lint && npm run test"
+    "verify": "npm run lint && npm run test",
+    "show:version": "npm show to-where-cli version"
   },
   "dependencies": {
     "@types/hosted-git-info": "^3.0.2",

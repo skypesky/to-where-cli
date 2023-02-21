@@ -1,6 +1,7 @@
 # 2023/02/10(0.0.16)
 
-- feat: support on npm, baidu, google page search
+- feat: support on npm, baidu, google, bing, github page search
+- feat: the `tw list` subcommand supports the use of the `tw ls` shorthand
   
 # 2023/02/06(0.0.15)
 
