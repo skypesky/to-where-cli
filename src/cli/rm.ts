@@ -1,7 +1,6 @@
 import { simpleWorker } from "./../classes/simple-worker";
 import { Command } from "commander";
 import { isEmpty } from "lodash";
-import { multiselect } from "@clack/prompts";
 import prompts from "prompts";
 
 const removeCommand = new Command();
