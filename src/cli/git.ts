@@ -30,6 +30,7 @@ gitCommand
   )
   .option("-r, --release", "Open release page", false)
   .option("-s, --settings", "Open settings page", false)
+  .option("--star", "Open star page", false)
   .action(async (options: ActionOptions) => {
     const actions = <boolean>options.actions;
     const author = <boolean>options.author;
@@ -43,6 +44,7 @@ gitCommand
     const release = <boolean>options.release;
     const main = <boolean>options.main;
     const settings = <boolean>options.settings;
+    const star = <boolean>options.star;
 
     const addresses: string[] = [];
     const githubAddress: string = await getGitRemoteUrl();
@@ -108,6 +110,10 @@ gitCommand
 
     if (settings) {
       addresses.push(urlJoin(githubAddress, "settings"));
+    }
+
+    if (star) {
+      addresses.push(urlJoin(githubAddress, "stargazers"));
     }
 
     if (main) {
