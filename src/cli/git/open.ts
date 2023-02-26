@@ -1,18 +1,16 @@
 import { Command } from "commander";
-import { ActionOptions } from "../meta/actions-options";
+import { ActionOptions } from "../../meta/actions-options";
 import urlJoin from "url-join";
 import getRepoInfo from "git-repo-info";
-import { logger } from "../utils/logger";
-import { open } from "../classes";
+import { logger } from "../../utils/logger";
+import { open } from "../../classes";
 import { isBoolean } from "lodash";
-import { getGitRemoteUrl } from "../utils/git";
+import { getGitRemoteUrl } from "../../utils/git";
 
-const gitCommand = new Command();
+const gitOpenCommand = new Command();
 
-// 逐步迁移出一个文件夹出来
-gitCommand
-  .name("git")
-  .command("open")
+gitOpenCommand
+  .name("open")
   .description("Open github repo page, issues page, pr page, ...etc")
   .option("-a, --actions", "Open actions page", false)
   .option("--author", "Open author profile page", false)
@@ -133,4 +131,4 @@ gitCommand
     }
   });
 
-export { gitCommand };
+export { gitOpenCommand };
