@@ -1,3 +1,7 @@
+# 2023/02/26(0.0.17)
+
+- feat: support for opening the star screen of a project
+
 # 2023/02/10(0.0.16)
 
 - feat: support on npm, baidu, google, bing, github page search
