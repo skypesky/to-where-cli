@@ -94,6 +94,10 @@ export class SimpleWorker implements WorkerProtocol {
     this.prettyPrint(points);
   }
 
+  async findAll(): Promise<Point[]> {
+    return this.config.findAll();
+  }
+
   async clean(force = false): Promise<void> {
     if (!force) {
       logger.error(
