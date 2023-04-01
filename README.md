@@ -69,16 +69,18 @@ Usage: tw git open [options]
 Open github repo page, issues page, pr page, ...etc
 
 Options:
-  -a, --actions            Open actions page (default: false)
-  --author                 Open author profile page (default: false)
-  -c, --commit [commitId]  Open commit page
-  --committer              Open committer profile page (default: false)
-  -f, --file <filePath>    Open specific file page
-  --find                   Open the search file page (default: false)
-  -i, --issue              Open issues list page (default: false)
-  -m, --main               Open main branch page (default: false)
-  -p, --pull-request       Open pull request list page (default: false)
-  -r, --release            Open release page (default: false)
-  -s, --settings           Open settings page (default: false)
-  -h, --help               display help for command
+  -a, --actions          Open actions page (default: false)
+  --author               Open author profile page (default: false)
+  -c, --commit [hash]    Open commit page
+  --committer            Open committer profile page (default: false)
+  -f, --file <filePath>  Open specific file page
+  --find                 Open the search file page (default: false)
+  -i, --issue            Open issues list page (default: false)
+  -m, --main             Open main branch page (default: false)
+  -p, --pull-request     Open pull request list page (default: false)
+  --pull [branch]        Open the page for creating a pull request, the branch defaults to the current branch (default: false)
+  -r, --release          Open release page (default: false)
+  -s, --settings         Open settings page (default: false)
+  --star                 Open star page (default: false)
+  -h, --help             display help for command
 ```
