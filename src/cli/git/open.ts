@@ -1,18 +1,16 @@
 import { Command } from "commander";
-import { ActionOptions } from "../meta/actions-options";
+import { ActionOptions } from "../../meta/actions-options";
 import urlJoin from "url-join";
 import getRepoInfo from "git-repo-info";
-import { logger } from "../utils/logger";
-import { open } from "../classes";
+import { logger } from "../../utils/logger";
+import { open } from "../../classes";
 import { isBoolean } from "lodash";
-import { getGitRemoteUrl } from "../utils/git";
+import { getGitRemoteUrl } from "../../utils/git";
 
-const gitCommand = new Command();
+const gitOpenCommand = new Command();
 
-// 逐步迁移出一个文件夹出来
-gitCommand
-  .name("git")
-  .command("open")
+gitOpenCommand
+  .name("open")
   .description("Open github repo page, issues page, pr page, ...etc")
   .option("-a, --actions", "Open actions page", false)
   .option("--author", "Open author profile page", false)
@@ -30,6 +28,7 @@ gitCommand
   )
   .option("-r, --release", "Open release page", false)
   .option("-s, --settings", "Open settings page", false)
+  .option("--star", "Open star page", false)
   .action(async (options: ActionOptions) => {
     const actions = <boolean>options.actions;
     const author = <boolean>options.author;
@@ -43,6 +42,7 @@ gitCommand
     const release = <boolean>options.release;
     const main = <boolean>options.main;
     const settings = <boolean>options.settings;
+    const star = <boolean>options.star;
 
     const addresses: string[] = [];
     const githubAddress: string = await getGitRemoteUrl();
@@ -110,6 +110,10 @@ gitCommand
       addresses.push(urlJoin(githubAddress, "settings"));
     }
 
+    if (star) {
+      addresses.push(urlJoin(githubAddress, "stargazers"));
+    }
+
     if (main) {
       // 什么都不用做
       addresses.push(githubAddress);
@@ -127,4 +131,4 @@ gitCommand
     }
   });
 
-export { gitCommand };
+export { gitOpenCommand };
