@@ -55,6 +55,7 @@
     "git-remote-origin-url": "3.1.0",
     "git-repo-info": "^2.1.1",
     "hosted-git-info": "^6.1.1",
+    "joi": "^17.9.1",
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
     "open": "^8.4.0",
