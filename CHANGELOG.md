@@ -1,6 +1,7 @@
 # 2023/02/26(0.0.17)
 
 - feat: support for opening the star screen of a project
+- feat: support remove multiple alias when use `tw rm`
 
 # 2023/02/10(0.0.16)
 
