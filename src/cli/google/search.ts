@@ -7,7 +7,7 @@ googleSearchCommand
   .name("search")
   .argument("[keyword]", "Search by keyword")
   .description("Search by keyword")
-  .action(async (keyword: string) => {
+  .action(async (keyword = "") => {
     const searchUrl = `https://www.google.com/search?q=${keyword}`;
 
     await open(searchUrl);
