@@ -8,7 +8,7 @@ const openMock = jest.mocked(open);
 describe(basename(__filename), () => {
   const githubWebsite = `https://github.com/search?q=`;
 
-  it("the bing github should be opened when key is not set", async () => {
+  it("the github page should be opened when key is not set", async () => {
     const program = createProgram();
 
     await program.parseAsync(["ts-node", "index.ts", "github"]);
@@ -16,7 +16,7 @@ describe(basename(__filename), () => {
     expect(openMock).toHaveBeenCalledWith(githubWebsite);
   });
 
-  it("the bing github should be opened when keyword was set", async () => {
+  it("the github page should be opened when keyword was set", async () => {
     const program = createProgram();
 
     await program.parseAsync(["ts-node", "index.ts", "github", "to-where-cli"]);
