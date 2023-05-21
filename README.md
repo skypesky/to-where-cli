@@ -1,9 +1,5 @@
 # to-where-cli
 
-> Currently only supports [macOS](https://en.wikipedia.org/wiki/MacOS), [Windows](https://en.wikipedia.org/wiki/Windows)
-
-Give your URL and folder an alias, and you can open your URL on the browser or open the folder on the file manager through the alias in the future.
-
 <div align="center">
 
 [![npm version](https://img.shields.io/npm/v/to-where-cli.svg?style=flat-square)](https://www.npmjs.org/package/to-where-cli)
@@ -13,13 +9,27 @@ Give your URL and folder an alias, and you can open your URL on the browser or o
 
 </div>
 
-## install
+> Currently only supports [macOS](https://en.wikipedia.org/wiki/MacOS), [Windows](https://en.wikipedia.org/wiki/Windows)
+
+Give your URL and folder an alias, and you can open your URL on the browser or open the folder on the file manager through the alias in the future.
+
+Features
+
+- [x] Open hard-to-remember websites by alias
+- [x] Open various pages of the github repository (issue, pull request, start...)
+- [x] Go straight to the search npm page
+- [x] Go straight to the search github page
+- [x] Go straight to the search google page
+- [x] Go straight to the search bing page
+- [x] Go straight to the search baidu page
+
+## Install
 
 ```shell
 npm install -g to-where-cli
 ```
 
-## usage
+## Basic usage
 
 
 - Add an alias to your address
@@ -37,13 +47,13 @@ tw home
 - Update the address of the alias
 
 ```shell
-tw add home https://github.com/skypesky/leetcode-for-javascript -f
+tw add home https://github.com/skypesky/leetcode-for-javascript
 ```
 
-- List existing aliases and addresses
+- List existing alias home
 
 ```shell
-tw list
+tw ls home
 ```
 
 - Remove an alias from your address
@@ -58,29 +68,4 @@ tw rm home
 tw -h
 ```
 
-## Extra
-
-- Open the repo, issue, pr address of github
-
-```shell
-~ tw git open -h
-Usage: tw git open [options]
-
-Open github repo page, issues page, pr page, ...etc
-
-Options:
-  -a, --actions          Open actions page (default: false)
-  --author               Open author profile page (default: false)
-  -c, --commit [hash]    Open commit page
-  --committer            Open committer profile page (default: false)
-  -f, --file <filePath>  Open specific file page
-  --find                 Open the search file page (default: false)
-  -i, --issue            Open issues list page (default: false)
-  -m, --main             Open main branch page (default: false)
-  -p, --pull-request     Open pull request list page (default: false)
-  --pull [branch]        Open the page for creating a pull request, the branch defaults to the current branch (default: false)
-  -r, --release          Open release page (default: false)
-  -s, --settings         Open settings page (default: false)
-  --star                 Open star page (default: false)
-  -h, --help             display help for command
-```
+> If you want to know more about the usage, please refer to the [documentation](https://skypesky.gitbook.io/to-where-cli/).
