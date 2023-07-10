@@ -1,4 +1,4 @@
-# 2023/05/21(0.0.19)
+# 2023/07/11(0.0.20)
 
 - feat: supports opening a specified branch
 - feat: support for opening the first commit
