@@ -14,6 +14,7 @@ gitOpenCommand
   .description("Open github repo page, issues page, pr page, ...etc")
   .option("-a, --actions", "Open actions page", false)
   .option("--author", "Open author profile page", false)
+  .option("-b, --branch [branch]", "Open branch page(default current branch)")
   .option("-c, --commit [hash]", "Open commit page")
   .option("--committer", "Open committer profile page", false)
   .option("-f, --file <filePath>", "Open specific file page")
@@ -32,6 +33,7 @@ gitOpenCommand
   .action(async (options: ActionOptions) => {
     const actions = <boolean>options.actions;
     const author = <boolean>options.author;
+    const branch = <string>options.branch;
     const commit = <string>options.commit;
     const committer = <boolean>options.committer;
     const file = <string>options.file;
@@ -78,6 +80,12 @@ gitOpenCommand
 
     if (release) {
       addresses.push(urlJoin(githubAddress, "releases"));
+    }
+
+    if (branch) {
+      const info = getRepoInfo();
+      const branchName = isBoolean(branch) ? info.branch : branch;
+      addresses.push(urlJoin(githubAddress, "tree", branchName));
     }
 
     if (commit) {
