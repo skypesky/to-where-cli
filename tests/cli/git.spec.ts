@@ -155,6 +155,35 @@ describe(basename(__filename), () => {
     expect(openMock).toBeCalledWith(urlJoin(githubAddress, "releases"));
   });
 
+  describe("#branch", () => {
+    it("should be work when call tw git open -b", async () => {
+      const program = createProgram();
+
+      await program.parseAsync(["ts-node", "index.ts", "git", "open", "-b"]);
+
+      expect(openMock).toBeCalledWith(
+        urlJoin(githubAddress, "tree", gitRepoInfo.branch)
+      );
+    });
+
+    it("should be work when call tw git open -b hot-fix", async () => {
+      const program = createProgram();
+
+      await program.parseAsync([
+        "ts-node",
+        "index.ts",
+        "git",
+        "open",
+        "-b",
+        "hot-fix",
+      ]);
+
+      expect(openMock).toBeCalledWith(
+        urlJoin(githubAddress, "tree", "hot-fix")
+      );
+    });
+  });
+
   it("should be work when call tw git open -c d7d60372b8e401cbaef264f675174d3127dee931", async () => {
     const program = createProgram();
 
