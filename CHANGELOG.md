@@ -1,5 +1,10 @@
 # 2023/05/21(0.0.19)
 
+- feat: supports opening a specified branch
+- feat: support for opening the first commit
+
+# 2023/05/21(0.0.19)
+
 - docs: update README.md, update gitbook site documentation
 
 # 2023/05/14(0.0.18)
@@ -26,9 +31,9 @@
 
 # 2023/01/28(0.0.13)
 
-- feat: support release of beta version of to-where-cli 
+- feat: support release of beta version of to-where-cli
 - fix: windows installation error: to-where-cli@0.0.12 preinstall: npx only-allow pnpm
-- feat: version check before release 
+- feat: version check before release
   
 # 2023/01/27(0.0.12)
 
