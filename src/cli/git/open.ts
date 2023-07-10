@@ -6,6 +6,7 @@ import { logger } from "../../utils/logger";
 import { open } from "../../classes";
 import { isBoolean } from "lodash";
 import { getGitRemoteUrl } from "../../utils/git";
+import exec from "shelljs.exec";
 
 const gitOpenCommand = new Command();
 
@@ -19,6 +20,7 @@ gitOpenCommand
   .option("--committer", "Open committer profile page", false)
   .option("-f, --file <filePath>", "Open specific file page")
   .option("--find", "Open the search file page", false)
+  .option("--first-commit", "Open first commit page", false)
   .option("-i, --issue", "Open issues list page", false)
   .option("-m, --main", "Open main branch page", false)
   .option("-p, --pull-request", "Open pull request list page", false)
@@ -38,6 +40,7 @@ gitOpenCommand
     const committer = <boolean>options.committer;
     const file = <string>options.file;
     const find = <boolean>options.find;
+    const firstCommit = <boolean>options.firstCommit;
     const issue = <boolean>options.issue;
     const pullRequest = <boolean>options.pullRequest;
     const pull = <string>options.pull;
@@ -112,6 +115,12 @@ gitOpenCommand
       // FIXME: 需要默认跳转到主分支
       const branchName = info.branch ?? "";
       addresses.push(urlJoin(githubAddress, "find", branchName));
+    }
+
+    if (firstCommit) {
+      const info = exec("git rev-list --max-parents=0 head");
+      const firstCommitHash = info.stdout.trim();
+      addresses.push(urlJoin(githubAddress, "commit", firstCommitHash));
     }
 
     if (settings) {
