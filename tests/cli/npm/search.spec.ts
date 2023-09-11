@@ -24,6 +24,22 @@ describe(basename(__filename), () => {
     expect(openMock).toHaveBeenCalledWith(`${npmWebsite}/search?q=to-where-cli`);
   });
 
+  it("the npm page should be opened when keyword was set && -c", async () => {
+    const program = createProgram();
+
+    await program.parseAsync(["ts-node", "index.ts", "npm", "to-where-cli", "-c"]);
+
+    expect(openMock).toHaveBeenCalledWith(`${npmWebsite}/package/to-where-cli?activeTab=code`);
+  });
+
+  it("the npm page should be opened when keyword was set && -d", async () => {
+    const program = createProgram();
+
+    await program.parseAsync(["ts-node", "index.ts", "npm", "to-where-cli", "-d"]);
+
+    expect(openMock).toHaveBeenCalledWith(`${npmWebsite}/package/to-where-cli?activeTab=dependencies`);
+  });
+
   it("the npm page should be opened when keyword was set && -v", async () => {
     const program = createProgram();
 
