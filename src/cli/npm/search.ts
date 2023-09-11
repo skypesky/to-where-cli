@@ -1,4 +1,4 @@
-import { Command, Option } from "commander";
+import { Command } from "commander";
 import { open } from "../../classes";
 
 const npmSearchCommand = new Command();
@@ -6,7 +6,7 @@ const npmSearchCommand = new Command();
 npmSearchCommand
   .name("search")
   .argument("[keyword]", "Search by keyword")
-  .option('-v,--version', 'Search by version')
+  .option('-v,--version', 'Open package versions page')
   .description("Search by keyword")
   .action(async (keyword: string, options: { version: boolean } ) => {
 
