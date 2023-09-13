@@ -1,3 +1,5 @@
+> If you want to know more about the usage, please refer to the [documentation](https://skypesky.gitbook.io/to-where-cli/).
+
 # to-where-cli
 
 <div align="center">
@@ -13,7 +15,7 @@
 
 Use the alias mechanism to help you open obscure URLs that are hard to remember. Helps you to open various addresses of github repositories, straight to the search page of npm, google and other sites.
 
-Features
+### Features
 
 - [x] Open hard-to-remember websites by alias
 - [x] Open various pages of the github repository (issue, pull request, start...)
@@ -67,5 +69,3 @@ tw rm home
 ```shell
 tw -h
 ```
-
-> If you want to know more about the usage, please refer to the [documentation](https://skypesky.gitbook.io/to-where-cli/).

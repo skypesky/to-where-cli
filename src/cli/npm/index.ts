@@ -1,12 +1,18 @@
 import { Command } from "commander";
 import { npmSearchCommand } from "./search";
 
-const npmCommand = new Command();
+function npmCommand() {
+  const command = new Command();
 
-npmCommand
-  .name("npm")
-  .description("Support using npm search,etc.Under continuous development...")
-  .argument("[keyword]", "Search by keyword")
-  .addCommand(npmSearchCommand, { isDefault: true, hidden: true });
+  command
+    .name("npm")
+    .description("Support using npm search,etc.Under continuous development...")
+    .argument("[keyword]", "Search by keyword")
+    .addCommand(npmSearchCommand(), { isDefault: true, hidden: true });
+
+  return command;
+}
+
+
 
 export { npmCommand };

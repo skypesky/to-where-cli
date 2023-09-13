@@ -1,4 +1,8 @@
-# 2023/05/21(0.0.19)
+# 2023/09/13(0.0.21)
+
+- feat: extend npm command (tw npm -c/-d/-v)
+
+# 2023/07/11(0.0.20)
 
 - feat: supports opening a specified branch
 - feat: support for opening the first commit
