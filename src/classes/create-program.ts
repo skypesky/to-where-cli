@@ -35,7 +35,7 @@ export function createProgram() {
   program.addCommand(listCommand);
   program.addCommand(cleanCommand);
   program.addCommand(gitCommand);
-  program.addCommand(npmCommand);
+  program.addCommand(npmCommand());
   program.addCommand(googleCommand);
   program.addCommand(baiduCommand);
   program.addCommand(bingCommand);
