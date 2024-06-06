@@ -1,3 +1,83 @@
+## 0.0.22 (六月 06, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped to 0.0.22
+- feat: add run kit to npm
+- Merge branch 'release' into master
+- chore: bum to v0.0.21
+- feat: extend npm command (tw npm -c/-d/-v) (#84)
+- feat: supports opening a specified branch && support for opening the first commit (#81)
+- feat: supports opening a specified branch && support for opening the first commit (#81)
+- docs: update README.md, update gitbook site documentation (#78)
+- feat: perfecting the test (#74)
+- feat: support for opening the star page of a project (#71)
+- feat: support for some search engines && tw list command abbreviation (#65)
+- fix: git open work with ssh-url (#62)
+- Update package.json
+- feat: support using `tw git open --pull` to create pr (#59)
+- Update package.json
+- feat: version check before release (#57)
+- fix: windows installation error: to-where-cli@0.0.12 preinstall: npx only-allow pnpm (#56)
+- [skip ci]: update gitignore file
+- [skip ci]: should be skip ci
+- Update discuss.yml
+- Update feature.yml
+- Update feature.yml
+- Update feature.yml
+- Update discuss.yml
+- feat: support release of beta version of to-where-cli (#50)
+- fix: README.md file error problem (#47)
+- feat: release version 0.0.11 (#46)
+- feat: support to open the file with the specified path through `tw git open --file xxx` && feat: support to open the commit with the specified hash through `tw git open -c xxx`
+- feat: support windows open url (#41)
+- Merge branch 'release' into master
+- feat: show repository status, author name (#38)
+- chore: bump version to 0.0.8 (#36)
+- chore: bump version to 0.0.8 (#36)
+- chore: released only when merged into branch release && feat: support point visits &&  feat: support relative file path(#35)
+- fix: the address error caused by the github address containing .git (#32)
+- feat: support to open multiple github pages at the same time (#27)
+- fix: tw bug: Cannot read properties of undefined (reading 'argument') (#26)
+- feat: support more github page command && pretty print point && remove useless deps (#22)
+- feat: support more github page command && pretty print point && remove useless deps (#21)
+- feat: migrate to pnpm && use esbuild && support git command (#17)
+- feat: improve cli test (#13)
+- feat: publish version 0.0.1
+- feat: add test
+- feat: add test
+- feat: add test
+- feat: add test
+- feat: add eslint to verify code styles
+- feat: add eslint lint
+- feat: add eslint lint
+- feat: add eslint lint
+- feat: add eslint lint
+- feat: add eslint lint
+- feat: add optional argument
+- support debug cli
+- feat: update codes
+- feat: update codes
+- feat: update codes
+- feat: update codes
+- feat: update codes
+- feat: update codes
+- write config some function
+- feat: add config interface
+- feat: update codes
+- feat: update codes
+- feat: update codes
+- feat: update codes
+- docs: update readme.md
+- docs: update readme.md
+- feat: support many commands
+- feat: support add command string
+- chore: init
+- feat: update codes
+- feat: update codes
+- feat: update codes
+- feat: update docs
+- chore: init
+- chore: init
+- first commit
+
 # 2023/09/13(0.0.21)
 
 - feat: extend npm command (tw npm -c/-d/-v)
