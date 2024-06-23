@@ -1,43 +1,43 @@
-import { basename } from "path";
-import { createProgram } from "../../src";
-import { open } from "../../src/classes/open";
-import gitRemoteOriginUrl from "git-remote-origin-url";
-import getRepoInfo, { GitRepoInfo } from "git-repo-info";
-import urlJoin from "url-join";
+import { basename } from 'path';
+import { createProgram } from '../../src';
+import { open } from '../../src/classes/open';
+import gitRemoteOriginUrl from 'git-remote-origin-url';
+import getRepoInfo, { GitRepoInfo } from 'git-repo-info';
+import urlJoin from 'url-join';
 
-jest.mock("../../src/classes/open");
+jest.mock('../../src/classes/open');
 const openMock = jest.mocked(open);
 
-jest.mock("git-remote-origin-url");
+jest.mock('git-remote-origin-url');
 const gitRemoteOriginUrlMock = jest.mocked(gitRemoteOriginUrl);
 
-jest.mock("git-repo-info");
+jest.mock('git-repo-info');
 const getRepoInfoMock = jest.mocked(getRepoInfo);
 
 describe(basename(__filename), () => {
-  const errorSpy = jest.spyOn(console, "error").mockReturnThis();
-  const githubAddress = "https://github.com/skypesky/to-where-cli";
+  const errorSpy = jest.spyOn(console, 'error').mockReturnThis();
+  const githubAddress = 'https://github.com/skypesky/to-where-cli';
   const gitRepoInfo: GitRepoInfo = {
-    branch: "master",
-    sha: "xxx",
-    abbreviatedSha: "",
-    tag: "",
-    lastTag: "",
+    branch: 'master',
+    sha: 'xxx',
+    abbreviatedSha: '',
+    tag: '',
+    lastTag: '',
     commitsSinceLastTag: 0,
-    committer: "skypesky",
-    committerDate: "",
-    author: "skypesky",
-    authorDate: "",
-    commitMessage: "",
-    root: "",
-    commonGitDir: "",
-    worktreeGitDir: "",
+    committer: 'skypesky',
+    committerDate: '',
+    author: 'skypesky',
+    authorDate: '',
+    commitMessage: '',
+    root: '',
+    commonGitDir: '',
+    worktreeGitDir: '',
   };
 
   beforeEach(() => {
     openMock.mockReturnThis();
     gitRemoteOriginUrlMock.mockResolvedValue(
-      "https://github.com/skypesky/to-where-cli.git"
+      'https://github.com/skypesky/to-where-cli.git'
     );
     getRepoInfoMock.mockReturnValue(gitRepoInfo);
   });
@@ -48,223 +48,225 @@ describe(basename(__filename), () => {
     jest.restoreAllMocks();
   });
 
-  it("should be throw an error when current directory is not a valid git repository", async () => {
+  it('should be throw an error when current directory is not a valid git repository', async () => {
     gitRemoteOriginUrlMock.mockImplementation(() => {
-      throw new Error("current directory is not a valid git repository");
+      throw new Error('current directory is not a valid git repository');
     });
 
     const program = createProgram();
 
-    await program.parseAsync(["ts-node", "index.ts", "git", "open"]);
+    await program.parseAsync(['ts-node', 'index.ts', 'git', 'open']);
 
     expect(errorSpy).toHaveBeenCalledWith(
       `The current directory is not a valid git repository`
     );
   });
 
-  it("should be work when call tw git open", async () => {
+  it('should be work when call tw git open', async () => {
     const program = createProgram();
 
-    await program.parseAsync(["ts-node", "index.ts", "git", "open"]);
+    await program.parseAsync(['ts-node', 'index.ts', 'git', 'open']);
 
-    expect(openMock).toBeCalledWith(
-      urlJoin(githubAddress, "tree", gitRepoInfo.branch)
+    expect(openMock).toHaveBeenCalledWith(
+      urlJoin(githubAddress, 'tree', gitRepoInfo.branch)
     );
   });
 
-  it("should be work when call tw git open -a", async () => {
+  it('should be work when call tw git open -a', async () => {
     const program = createProgram();
 
-    await program.parseAsync(["ts-node", "index.ts", "git", "open", "-a"]);
+    await program.parseAsync(['ts-node', 'index.ts', 'git', 'open', '-a']);
 
-    expect(openMock).toBeCalledWith(urlJoin(githubAddress, "actions"));
+    expect(openMock).toHaveBeenCalledWith(urlJoin(githubAddress, 'actions'));
   });
 
-  it("should be work when call tw git open -i", async () => {
+  it('should be work when call tw git open -i', async () => {
     const program = createProgram();
 
-    await program.parseAsync(["ts-node", "index.ts", "git", "open", "-i"]);
+    await program.parseAsync(['ts-node', 'index.ts', 'git', 'open', '-i']);
 
-    expect(openMock).toBeCalledWith(urlJoin(githubAddress, "issues"));
+    expect(openMock).toHaveBeenCalledWith(urlJoin(githubAddress, 'issues'));
   });
 
-  it("should be work when call tw git open -p", async () => {
+  it('should be work when call tw git open -p', async () => {
     const program = createProgram();
 
-    await program.parseAsync(["ts-node", "index.ts", "git", "open", "-p"]);
+    await program.parseAsync(['ts-node', 'index.ts', 'git', 'open', '-p']);
 
-    expect(openMock).toBeCalledWith(urlJoin(githubAddress, "pulls"));
+    expect(openMock).toHaveBeenCalledWith(urlJoin(githubAddress, 'pulls'));
   });
 
-  describe("#pull", () => {
-    it("should be work when call tw git open --pull", async () => {
+  describe('#pull', () => {
+    it('should be work when call tw git open --pull', async () => {
       const program = createProgram();
 
       await program.parseAsync([
-        "ts-node",
-        "index.ts",
-        "git",
-        "open",
-        "--pull",
+        'ts-node',
+        'index.ts',
+        'git',
+        'open',
+        '--pull',
       ]);
 
-      expect(openMock).toBeCalledWith(
-        urlJoin(githubAddress, "pull/new", gitRepoInfo.branch)
+      expect(openMock).toHaveBeenCalledWith(
+        urlJoin(githubAddress, 'pull/new', gitRepoInfo.branch)
       );
     });
 
-    it("should be work when call tw git open --pull $branchName", async () => {
+    it('should be work when call tw git open --pull $branchName', async () => {
       const program = createProgram();
 
       await program.parseAsync([
-        "ts-node",
-        "index.ts",
-        "git",
-        "open",
-        "--pull",
-        "test-branch",
+        'ts-node',
+        'index.ts',
+        'git',
+        'open',
+        '--pull',
+        'test-branch',
       ]);
 
-      expect(openMock).toBeCalledWith(
-        urlJoin(githubAddress, "pull/new", "test-branch")
+      expect(openMock).toHaveBeenCalledWith(
+        urlJoin(githubAddress, 'pull/new', 'test-branch')
       );
     });
   });
 
-  it("should be work when call tw git open --author", async () => {
+  it('should be work when call tw git open --author', async () => {
     const program = createProgram();
 
     await program.parseAsync([
-      "ts-node",
-      "index.ts",
-      "git",
-      "open",
-      "--author",
+      'ts-node',
+      'index.ts',
+      'git',
+      'open',
+      '--author',
     ]);
 
-    expect(openMock).toBeCalledWith(
+    expect(openMock).toHaveBeenCalledWith(
       urlJoin(new URL(githubAddress).origin, gitRepoInfo.author)
     );
   });
 
-  it("should be work when call tw git open -r", async () => {
+  it('should be work when call tw git open -r', async () => {
     const program = createProgram();
 
-    await program.parseAsync(["ts-node", "index.ts", "git", "open", "-r"]);
+    await program.parseAsync(['ts-node', 'index.ts', 'git', 'open', '-r']);
 
-    expect(openMock).toBeCalledWith(urlJoin(githubAddress, "releases"));
+    expect(openMock).toHaveBeenCalledWith(urlJoin(githubAddress, 'releases'));
   });
 
-  describe("#branch", () => {
-    it("should be work when call tw git open -b", async () => {
+  describe('#branch', () => {
+    it('should be work when call tw git open -b', async () => {
       const program = createProgram();
 
-      await program.parseAsync(["ts-node", "index.ts", "git", "open", "-b"]);
+      await program.parseAsync(['ts-node', 'index.ts', 'git', 'open', '-b']);
 
-      expect(openMock).toBeCalledWith(
-        urlJoin(githubAddress, "tree", gitRepoInfo.branch)
+      expect(openMock).toHaveBeenCalledWith(
+        urlJoin(githubAddress, 'tree', gitRepoInfo.branch)
       );
     });
 
-    it("should be work when call tw git open -b hot-fix", async () => {
+    it('should be work when call tw git open -b hot-fix', async () => {
       const program = createProgram();
 
       await program.parseAsync([
-        "ts-node",
-        "index.ts",
-        "git",
-        "open",
-        "-b",
-        "hot-fix",
+        'ts-node',
+        'index.ts',
+        'git',
+        'open',
+        '-b',
+        'hot-fix',
       ]);
 
-      expect(openMock).toBeCalledWith(
-        urlJoin(githubAddress, "tree", "hot-fix")
+      expect(openMock).toHaveBeenCalledWith(
+        urlJoin(githubAddress, 'tree', 'hot-fix')
       );
     });
   });
 
-  it("should be work when call tw git open -c d7d60372b8e401cbaef264f675174d3127dee931", async () => {
+  it('should be work when call tw git open -c d7d60372b8e401cbaef264f675174d3127dee931', async () => {
     const program = createProgram();
 
-    const commitId = "d7d60372b8e401cbaef264f675174d3127dee931";
+    const commitId = 'd7d60372b8e401cbaef264f675174d3127dee931';
 
     await program.parseAsync([
-      "ts-node",
-      "index.ts",
-      "git",
-      "open",
-      "-c",
+      'ts-node',
+      'index.ts',
+      'git',
+      'open',
+      '-c',
       commitId,
     ]);
 
-    expect(openMock).toBeCalledWith(urlJoin(githubAddress, "commit", commitId));
+    expect(openMock).toHaveBeenCalledWith(
+      urlJoin(githubAddress, 'commit', commitId)
+    );
   });
 
-  it("should be work when call tw git open --committer", async () => {
+  it('should be work when call tw git open --committer', async () => {
     const program = createProgram();
 
     await program.parseAsync([
-      "ts-node",
-      "index.ts",
-      "git",
-      "open",
-      "--committer",
+      'ts-node',
+      'index.ts',
+      'git',
+      'open',
+      '--committer',
     ]);
 
-    expect(openMock).toBeCalledWith(
+    expect(openMock).toHaveBeenCalledWith(
       urlJoin(new URL(githubAddress).origin, gitRepoInfo.committer)
     );
   });
 
-  it("should be work when call tw git open -f, --file README.md", async () => {
+  it('should be work when call tw git open -f, --file README.md', async () => {
     const program = createProgram();
 
     await program.parseAsync([
-      "ts-node",
-      "index.ts",
-      "git",
-      "open",
-      "-f",
-      "README.md",
+      'ts-node',
+      'index.ts',
+      'git',
+      'open',
+      '-f',
+      'README.md',
     ]);
 
-    expect(openMock).toBeCalledWith(
-      urlJoin(urlJoin(githubAddress, "tree", gitRepoInfo.branch, "README.md"))
+    expect(openMock).toHaveBeenCalledWith(
+      urlJoin(urlJoin(githubAddress, 'tree', gitRepoInfo.branch, 'README.md'))
     );
   });
 
-  it("should be work when call tw git open --find", async () => {
+  it('should be work when call tw git open --find', async () => {
     const program = createProgram();
 
-    await program.parseAsync(["ts-node", "index.ts", "git", "open", "--find"]);
+    await program.parseAsync(['ts-node', 'index.ts', 'git', 'open', '--find']);
 
-    expect(openMock).toBeCalledWith(
-      urlJoin(urlJoin(githubAddress, "find", gitRepoInfo.branch))
+    expect(openMock).toHaveBeenCalledWith(
+      urlJoin(urlJoin(githubAddress, 'find', gitRepoInfo.branch))
     );
   });
 
-  it("should be work when call tw git open -s", async () => {
+  it('should be work when call tw git open -s', async () => {
     const program = createProgram();
 
-    await program.parseAsync(["ts-node", "index.ts", "git", "open", "-s"]);
+    await program.parseAsync(['ts-node', 'index.ts', 'git', 'open', '-s']);
 
-    expect(openMock).toBeCalledWith(urlJoin(githubAddress, "settings"));
+    expect(openMock).toHaveBeenCalledWith(urlJoin(githubAddress, 'settings'));
   });
 
-  it("should be work when call tw git open --star", async () => {
+  it('should be work when call tw git open --star', async () => {
     const program = createProgram();
 
-    await program.parseAsync(["ts-node", "index.ts", "git", "open", "--star"]);
+    await program.parseAsync(['ts-node', 'index.ts', 'git', 'open', '--star']);
 
-    expect(openMock).toBeCalledWith(urlJoin(githubAddress, "stargazers"));
+    expect(openMock).toHaveBeenCalledWith(urlJoin(githubAddress, 'stargazers'));
   });
 
-  it("should be work when call tw git open --main", async () => {
+  it('should be work when call tw git open --main', async () => {
     const program = createProgram();
 
-    await program.parseAsync(["ts-node", "index.ts", "git", "open", "--main"]);
+    await program.parseAsync(['ts-node', 'index.ts', 'git', 'open', '--main']);
 
-    expect(openMock).toBeCalledWith(urlJoin(githubAddress));
+    expect(openMock).toHaveBeenCalledWith(urlJoin(githubAddress));
   });
 });

@@ -1,15 +1,15 @@
-import { simpleWorker } from "./../classes/simple-worker";
-import { Command } from "commander";
-import { isEmpty } from "lodash";
-import prompts from "prompts";
-import { Point } from "../meta";
-import { logger } from "../utils/logger";
+import { simpleWorker } from './../classes/simple-worker';
+import { Command } from 'commander';
+import { isEmpty } from 'lodash';
+import prompts from 'prompts';
+import { Point } from '../meta';
+import { logger } from '../utils/logger';
 
 const removeCommand = new Command();
 removeCommand
-  .name("rm")
-  .description("Remove an alias from your address")
-  .argument("[alias]", "Enter the point to be deleted")
+  .name('rm')
+  .description('Remove an alias from your address')
+  .argument('[alias]', 'Enter the point to be deleted')
   .action(async (alias: string) => {
     if (isEmpty(alias)) {
       const points = await simpleWorker.findAll();
@@ -27,14 +27,14 @@ removeCommand
 
       const response = await prompts([
         {
-          type: "multiselect",
-          name: "removeAliases",
-          message: "Select the alias to be deleted233",
+          type: 'multiselect',
+          name: 'removeAliases',
+          message: 'Select the alias to be deleted',
           choices: choices,
         },
       ]);
 
-      const aliases: string[] = response?.["removeAliases"] ?? [];
+      const aliases: string[] = response?.['removeAliases'] ?? [];
 
       for (const _alias of aliases) {
         // @FIXME: 请使用更加优雅的方法，目前的代码效率略低 @jianchao

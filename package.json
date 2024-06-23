@@ -62,6 +62,7 @@
     "open": "^8.4.0",
     "prompts": "^2.4.2",
     "shelljs.exec": "^1.1.8",
+    "ufo": "^1.5.3",
     "url-join": "4.0.1"
   },
   "devDependencies": {
