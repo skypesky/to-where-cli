@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { githubSearchCommand } from './search';
+import { open } from '../../classes';
 
 const githubCommand = new Command();
 
@@ -9,6 +9,10 @@ githubCommand
     'Support using github search,etc.Under continuous development...'
   )
   .argument('[keyword]', 'Search by keyword')
-  .addCommand(githubSearchCommand, { isDefault: true, hidden: false });
+  .action(async (keyword = '') => {
+    const searchUrl = `https://github.com/search?q=${keyword}`;
+
+    await open(searchUrl);
+  });
 
 export { githubCommand };
