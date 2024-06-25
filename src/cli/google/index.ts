@@ -1,14 +1,18 @@
-import { Command } from "commander";
-import { googleSearchCommand } from "./search";
+import { Command } from 'commander';
+import { open } from '../../classes';
 
 const googleCommand = new Command();
 
 googleCommand
-  .name("google")
+  .name('google')
   .description(
-    "Support using google search,etc.Under continuous development..."
+    'Support using google search,etc.Under continuous development...'
   )
-  .argument("[keyword]", "Search by keyword")
-  .addCommand(googleSearchCommand, { isDefault: true, hidden: true });
+  .argument('[keyword]', 'Search by keyword')
+  .action(async (keyword = '') => {
+    const searchUrl = `https://www.google.com/search?q=${keyword}`;
+
+    await open(searchUrl);
+  });
 
 export { googleCommand };
