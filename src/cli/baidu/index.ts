@@ -1,12 +1,15 @@
-import { Command } from "commander";
-import { baiduSearchCommand } from "./search";
+import { Command } from 'commander';
 
 const baiduCommand = new Command();
 
 baiduCommand
-  .name("baidu")
-  .description("Support using baidu search,etc.Under continuous development...")
-  .argument("[keyword]", "Search by keyword")
-  .addCommand(baiduSearchCommand, { isDefault: true, hidden: true });
+  .name('baidu')
+  .description('Support using baidu search,etc.Under continuous development...')
+  .argument('[keyword]', 'Search by keyword')
+  .action(async (keyword = '') => {
+    const searchUrl = `https://www.baidu.com/s?wd=${keyword}`;
+
+    await open(searchUrl);
+  });
 
 export { baiduCommand };
