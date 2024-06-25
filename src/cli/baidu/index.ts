@@ -1,4 +1,5 @@
 import { Command } from 'commander';
+import { open } from '../../classes';
 
 const baiduCommand = new Command();
 
