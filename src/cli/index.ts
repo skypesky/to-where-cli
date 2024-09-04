@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 
-import { createProgram } from "../classes/create-program";
+import { createProgram } from '../classes/create-program';
 
 (async () => {
   const program = createProgram();
