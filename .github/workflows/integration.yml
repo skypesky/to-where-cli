@@ -18,9 +18,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Echo Node.js version
-        run: echo "Running on Node.js version ${{ matrix.node-version }} ${matrix.node-version}"
-
       - name: Checkout repo
         uses: actions/checkout@v4
 
