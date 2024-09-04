@@ -1,18 +1,31 @@
 import { Command } from 'commander';
 import { open } from '../../classes';
 
-const githubCommand = new Command();
+export function githubCommand() {
+  const command = new Command();
 
-githubCommand
-  .name('github')
-  .description(
-    'Support using github search,etc.Under continuous development...'
-  )
-  .argument('[keyword]', 'Search by keyword')
-  .action(async (keyword = '') => {
-    const searchUrl = `https://github.com/search?q=${keyword}`;
+  command
+    .name('github')
+    .description(
+      'Support using github search,etc.Under continuous development...'
+    )
+    .argument('[keyword]', 'Search by keyword')
+    .option('-o,--org [org]', 'Open run kit page')
+    .action(async (keyword = '', options: { org: string }) => {
+      let url = '';
 
-    await open(searchUrl);
-  });
+      if (keyword && options.org) {
+        url = `https://github.com/search?q=org:${options.org}+${keyword}`;
+      } else if (keyword) {
+        url = `https://github.com/search?q=${keyword}`;
+      } else if (options.org) {
+        url = `https://github.com/${options.org}`;
+      } else {
+        url = `https://github.com/search?q=${keyword}`;
+      }
 
-export { githubCommand };
+      await open(url);
+    });
+
+  return command;
+}

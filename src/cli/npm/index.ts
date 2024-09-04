@@ -6,7 +6,7 @@ function npmCommand() {
 
   command
     .name('npm')
-    .description('Support using npm search,etc.Under continuous development...')
+    .description('Support using npm search, etc')
     .argument('[packageName]', 'Search by package name')
     .option('-c,--code', 'Open package code page')
     .option('-d,--dependencies', 'Open package dependencies page')
