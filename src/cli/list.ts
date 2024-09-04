@@ -1,6 +1,5 @@
 import { simpleWorker } from '../classes/simple-worker';
 import { Command } from 'commander';
-import { ActionOptions } from '../meta/actions-options';
 
 const listCommand = new Command();
 
