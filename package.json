@@ -44,7 +44,7 @@
     "deploy": "bun run build && npm uninstall -g to-where-cli && npm install -g . -f",
     "deploy:remote": "npm uninstall -g to-where-cli && npm install -g to-where-cli",
     "verify": "bun run lint && bun run test",
-    "bump-version": "ver-bump -f package.json -n",
+    "bump-version": "zx scripts/bump-version.mjs",
     "show:version": "npm show to-where-cli version"
   },
   "dependencies": {
@@ -67,6 +67,7 @@
     "url-join": "4.0.1"
   },
   "devDependencies": {
+    "@pnpm/workspace.find-packages": "^4.0.9",
     "@types/chalk": "^2.2.0",
     "@types/commander": "^2.12.2",
     "@types/fs-extra": "^9.0.13",
@@ -88,6 +89,7 @@
     "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.4",
-    "ver-bump": "^1.1.8"
+    "ver-bump": "^1.1.8",
+    "zx": "^8.1.5"
   }
 }
