@@ -69,8 +69,6 @@ gitCommand
       addresses.push(joinURL(githubAddress, 'issues'));
     }
 
-    console.log({ pullRequest });
-
     if (pullRequest) {
       if (isNumber(pullRequest)) {
         addresses.push(joinURL(githubAddress, 'pull', pullRequest));
