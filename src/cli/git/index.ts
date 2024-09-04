@@ -3,7 +3,7 @@ import type { ActionOptions } from '../../meta/actions-options';
 import { getGitRemoteUrl } from '../../utils/git';
 import { logger } from '../../utils/logger';
 import { joinURL } from 'ufo';
-import { isBoolean } from 'lodash';
+import { isBoolean, isNumber } from 'lodash';
 import getRepoInfo from 'git-repo-info';
 import exec from 'shelljs.exec';
 import { open } from '../../classes';
@@ -23,7 +23,11 @@ gitCommand
   .option('--first-commit', 'Open first commit page', false)
   .option('-i, --issue', 'Open issues list page', false)
   .option('-m, --main', 'Open main branch page', false)
-  .option('-p, --pull-request', 'Open pull request list page', false)
+  .option(
+    '-p, --pull-request [pullRequest]',
+    'Open pull request list page',
+    false
+  )
   .option(
     '--pull [branch]',
     'Open the page for creating a pull request, the branch defaults to the current branch',
@@ -42,7 +46,7 @@ gitCommand
     const find = <boolean>options.find;
     const firstCommit = <boolean>options.firstCommit;
     const issue = <boolean>options.issue;
-    const pullRequest = <boolean>options.pullRequest;
+    const pullRequest = <string>options.pullRequest;
     const pull = <string>options.pull;
     const release = <boolean>options.release;
     const main = <boolean>options.main;
@@ -65,8 +69,14 @@ gitCommand
       addresses.push(joinURL(githubAddress, 'issues'));
     }
 
+    console.log({ pullRequest });
+
     if (pullRequest) {
-      addresses.push(joinURL(githubAddress, 'pulls'));
+      if (isNumber(pullRequest)) {
+        addresses.push(joinURL(githubAddress, 'pull', pullRequest));
+      } else {
+        addresses.push(joinURL(githubAddress, 'pulls'));
+      }
     }
 
     if (pull) {
