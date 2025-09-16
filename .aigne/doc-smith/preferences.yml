@@ -1,0 +1,7 @@
+rules:
+  - id: pref_af62bb7a4047b8f8
+    active: true
+    scope: document
+    rule: 自定义组件描述中必须只使用普通文本，不能使用 Markdown 格式。
+    feedback: 不可以自定义组件描述中使用 markdown,只能使用普通文本
+    createdAt: 2025-09-02T06:23:54.718Z

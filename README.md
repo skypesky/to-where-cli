@@ -1,4 +1,4 @@
-> If you want to know more about the usage, please refer to the [documentation](https://skypesky.gitbook.io/to-where-cli/).
+> For comprehensive usage guide and API reference, please visit our [online documentation](https://docsmith.aigne.io/c/docs/to-where-cli/). You can also refer to the [alternative documentation](https://skypesky.gitbook.io/to-where-cli/) for additional information.
 
 # to-where-cli
 
